@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务管理 - 个人任务管理与日程安排系统</title>
+
+    <!-- Material Design Web Components -->
+    <!-- 1. Material Symbols 图标 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- 2. Material Design Web Components 核心样式 -->
+    <link href="https://cdn.jsdelivr.net/npm/@material/web@1.1.1/dist/all.min.css" rel="stylesheet">
+    
+    <!-- 3. Material Design Web Components 核心脚本 -->
+    <script type="module">
+        import '@material/web/all.js';
+    </script>
+
+    <!-- 4. Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 5. 自定义样式 -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/light.css">
+    <link rel="stylesheet" href="css/dark.css">
+</head>
+<body class="light">
+    <!-- 导入导航栏 -->
+    <div id="nav-container"></div>
+
+    <!-- 页面主要内容 -->
+    <main class="main-content">
+        <h1>任务管理</h1>
+        <!-- 这里添加任务管理相关的内容 -->
+    </main>
+
+    <!-- 导入导航栏和初始化主题 -->
+    <script src="js/app.js"></script>
+    <script>
+        // 加载导航栏
+        fetch('templates/nav.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('nav-container').innerHTML = html;
+                // 重新初始化主题切换
+                initThemeToggle();
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+/* 全局样式重置 */
+* {
+    margin: 0; /* 移除默认外边距 */
+    padding: 0; /* 移除默认内边距 */
+    box-sizing: border-box; /* 包括内边距和边框在内的总宽度和高度 */
+}
+
+/* 设置 body 的字体和背景颜色 */
+body {
+    font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; /* 字体系列 */
+    background-color: var(--md-sys-color-background); /* 背景颜色 */
+    color: var(--md-sys-color-on-background); /* 字体颜色 */
+    line-height: 1.5; /* 行高 */
+}
+
+/* 导航栏样式 */
+.navigation-bar {
+    display: flex; /* 使用 flex 布局 */
+    flex-direction: column; /* 垂直排列子元素 */
+    justify-content: space-between; /* 主轴对齐方式 */
+    align-items: center; /* 交叉轴对齐方式 */
+    width: 72px; /* 宽度 */
+    height: 100vh; /* 高度，占满视口高度 */
+    padding: 16px 0; /* 内边距 */
+    background-color: var(--md-sys-color-surface); /* 背景颜色 */
+    border-right: 1px solid var(--md-sys-color-outline-variant); /* 右边框 */
+    position: fixed; /* 固定定位 */
+    top: 0; /* 距离顶部 0 */
+    left: 0; /* 距离左侧 0 */
+}
+
+/* 导航栏顶部样式 */
+.nav-top {
+    display: flex; /* 使用 flex 布局 */
+    flex-direction: column; /* 垂直排列子元素 */
+    align-items: center; /* 交叉轴对齐方式 */
+    width: 100%; /* 宽度 */
+    gap: 16px; /* 导航项间距 */
+}
+
+/* 导航栏底部样式 */
+.nav-bottom {
+    display: flex; /* 使用 flex 布局 */
+    flex-direction: column; /* 垂直排列子元素 */
+    align-items: center; /* 交叉轴对齐方式 */
+    width: 100%; /* 宽度 */
+    padding: 8px 0; /* 内边距 */
+}
+
+/* 主题切换按钮样式 */
+.theme-toggle {
+    border: none; /* 无边框 */
+    background: none; /* 无背景 */
+    cursor: pointer; /* 鼠标指针样式 */
+    padding: 8px; /* 内边距 */
+    border-radius: 50%; /* 圆形边框 */
+    color: var(--md-sys-color-on-surface); /* 字体颜色 */
+    display: flex; /* 使用 flex 布局 */
+    align-items: center; /* 交叉轴对齐方式 */
+    justify-content: center; /* 主轴对齐方式 */
+    transition: background-color 0.3s; /* 背景颜色过渡效果 */
+    width: 40px; /* 宽度 */
+    height: 40px; /* 高度 */
+    margin: 0; /* 外边距 */
+}
+
+/* 主题切换悬停效果 */
+.theme-toggle:hover {
+    background-color: var(--md-sys-color-surface-variant); /* 悬停背景颜色 */
+}
+
+/* 主题切换按钮图标样式 */
+.theme-toggle .material-symbols-rounded {
+    font-size: 24px; /* 字体大小 */
+    transition: transform 0.3s; /* 变换过渡效果 */
+}
+
+/* 主题切换按钮悬停时图标效果 */
+.theme-toggle:hover .material-symbols-rounded {
+    transform: scale(1.1); /* 放大效果 */
+}
+
+/* 菜单按钮区域样式 */
+.menu-button-area {
+    display: flex; /* 使用 flex 布局 */
+    flex-direction: column; /* 垂直排列子元素 */
+    align-items: center; /*  交叉轴对齐方式 */
+    justify-content: center; /* 主轴对齐方式 */
+    width: 40px; /* 宽度 */
+    height: 56px; /* 高度 */
+    cursor: pointer; /* 鼠标指针样式 */
+    transition: background-color 0.3s; /* 背景颜色过渡效果 */
+    gap: 8px; /* 图标和文字间距 */
+}
+
+/* 菜单按钮图标容器样式 */
+.menu-button-area .icon-container {
+    width: 50px; /* 宽度 */
+    height: 30px; /* 高度 */
+    display: flex; /* 使用 flex 布局 */
+    align-items: center; /* 交叉轴对齐方式 */
+    justify-content: center; /* 主轴对齐方式 */
+    border-radius: 20px; /* 圆角边框 */
+}
+
+/* 菜单按钮图标容器悬停效果 */
+.menu-button-area .icon-container:hover {
+    background-color: var(--md-sys-color-surface-variant); /* 悬停背景颜色 */
+}
+
+/* 菜单按钮图标样式 */
+.menu-button-area .material-symbols-outlined {
+    font-size: 22px; /* 图标字体大小 */
+    color: var(--md-sys-color-on-surface); /* 图标颜色 */
+    transition: transform 0.3s; /* 变换过渡效果 */
+}
+
+/* 菜单按钮标签样式 */
+.menu-button-area .button-label {
+    font-size: 12px; /* 字体大小 */
+    color: var(--md-sys-color-on-surface); /* 字体颜色 */
+    text-align: center; /* 文本居中 */
+}
+
+/* 菜单按钮图标容器悬停时图标效果 */
+.menu-button-area .icon-container:hover .material-symbols-outlined {
+    transform: scale(1.1); /* 放大效果 */
+}
+
+/* 导航链接样式 */
+.nav-link {
+    text-decoration: none; /* 移除下划线 */
+    color: inherit; /* 继承颜色 */
+    width: 100%; /* 宽度 */
+    display: flex; /* 使用 flex 布局 */
+    justify-content: center; /* 主轴对齐方式 */
+}
+
+/* 活动导航链接样式 */
+.nav-link.active .menu-button-area {
+    position: relative; /* 相对定位 */
+}
+
+/* 活动导航链接背景效果 */
+.nav-link.active .menu-button-area::before {
+    content: ''; /* 空内容 */
+    position: absolute; /* 绝对定位 */
+    left: 50%; /* 左侧 50% */
+    top: 1px; /* 顶部 1px */
+    transform: translateX(-50%); /* 水平居中 */
+    width: 50px; /* 宽度 */
+    height: 30px; /* 高度 */
+    background-color: var(--md-sys-color-primary); /* 背景颜色 */
+    border-radius: 20px; /* 圆角边框 */
+    opacity: 0.1; /* 透明度 */
+    z-index: -1; /* 层级 */
+}
+
+/* 活动导航链接图标和标签样式 */
+.nav-link.active .material-symbols-outlined,
+.nav-link.active .button-label {
+    color: var(--md-sys-color-primary); /* 颜色 */
+    font-variation-settings: 'FILL' 1; /* 字体设置 */
+}
+
+/* 主要内容样式 */
+.main-content {
+    margin-left: 72px; /* 左外边距 */
+    padding: 24px; /* 内边距 */
+    min-height: 100vh; /* 最小高度 */
+    opacity: 0; /* 初始透明度 */
+    transform: translateY(20px); /* 初始位置 */
+    animation: fadeIn 0.3s ease-out forwards; /* 淡入动画 */
+}
+
+/* 淡入动画关键帧 */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* 初始透明度 */
+        transform: translateY(20px); /* 初始位置 */
+    }
+    to {
+        opacity: 1; /* 最终透明度 */
+        transform: translateY(0); /* 最终位置 */
+    }
+}
+
+/* 页面离开效果 */
+.page-exit {
+    opacity: 1; /* 初始透明度 */
+    transition: opacity 0.2s ease-out; /* 透明度过渡效果 */
+}
+
+/* 页面离开活动效果 */
+.page-exit-active {
+    opacity: 0; /* 最终透明度 */
+}
+
+/* 图标动画样式 */
+.animated-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 变换过渡效果 */
+}
+
+/* 导航链接悬停时图标效果 */
+.nav-link:hover .animated-icon {
+    transform: scale(1.1); /* 放大效果 */
+}
+
+/* 活动导航链接图标效果 */
+.nav-link.active .animated-icon {
+    transform: scale(1.2); /* 放大效果 */
+    --md-icon-button-state-layer-shape: 0; /* 图标按钮状态层形状 */
+    --md-icon-button-state-layer-color: var(--md-sys-color-primary); /* 图标按钮状态层颜色 */
+}
+
+/* 图标样式 */
+md-icon {
+    font-variation-settings: 'FILL' 0; /* 字体设置 */
+    transition: font-variation-settings 0.3s ease; /* 字体设置过渡效果 */
+}
+
+/* 活动导航链接图标样式 */
+.nav-link.active md-icon {
+    font-variation-settings: 'FILL' 1; /* 字体设置 */
+}
+
+/* 区域标题 */
+section h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: var(--md-sys-color-on-surface);
+}

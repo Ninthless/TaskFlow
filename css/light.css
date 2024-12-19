@@ -1,0 +1,50 @@
+.light {
+  --md-sys-color-primary: rgb(67 94 145); /* 主色，用于强调元素 */
+  --md-sys-color-surface-tint: rgb(67 94 145); /* 表面色调，用于表面元素的轻微着色 */
+  --md-sys-color-on-primary: rgb(255 255 255); /* 主色上的文本或图标颜色 */
+  --md-sys-color-primary-container: rgb(216 226 255); /* 主色容器背景色 */
+  --md-sys-color-on-primary-container: rgb(0 26 65); /* 主色容器上的文本或图标颜色 */
+  --md-sys-color-secondary: rgb(86 94 113); /* 次要色，用于次要强调元素 */
+  --md-sys-color-on-secondary: rgb(255 255 255); /* 次要色上的文本或图标颜色 */
+  --md-sys-color-secondary-container: rgb(219 226 249); /* 次要色容器背景色 */
+  --md-sys-color-on-secondary-container: rgb(19 27 44); /* 次要色容器上的文本或图标颜色 */
+  --md-sys-color-tertiary: rgb(113 85 116); /* 第三色，用于辅助强调元素 */
+  --md-sys-color-on-tertiary: rgb(255 255 255); /* 第三色上的文本或图标颜色 */
+  --md-sys-color-tertiary-container: rgb(251 215 252); /* 第三色容器背景色 */
+  --md-sys-color-on-tertiary-container: rgb(41 19 45); /* 第三色容器上的文本或图标颜色 */
+  --md-sys-color-error: rgb(186 26 26); /* 错误色，用于错误状态 */
+  --md-sys-color-on-error: rgb(255 255 255); /* 错误色上的文本或图标颜色 */
+  --md-sys-color-error-container: rgb(255 218 214); /* 错误色容器背景色 */
+  --md-sys-color-on-error-container: rgb(65 0 2); /* 错误色容器上的文本或图标颜色 */
+  --md-sys-color-background: rgb(249 249 255); /* 背景色 */
+  --md-sys-color-on-background: rgb(26 27 32); /* 背景色上的文本或图标颜色 */
+  --md-sys-color-surface: #ffffff; /* 表面色 */
+  --md-sys-color-on-surface: #1a1c1e; /* 表面色上的文本或图标颜色 */
+  --md-sys-color-surface-variant: #dfe2eb; /* 表面变体色 */
+  --md-sys-color-outline: rgb(116 119 127); /* 轮廓色 */
+  --md-sys-color-outline-variant: rgb(196 198 208); /* 轮廓变体色 */
+  --md-sys-color-shadow: rgb(0 0 0); /* 阴影色 */
+  --md-sys-color-scrim: rgb(0 0 0); /* 遮罩色 */
+  --md-sys-color-inverse-surface: rgb(47 48 54); /* 反转表面色 */
+  --md-sys-color-inverse-on-surface: rgb(240 240 247); /* 反转表面色上的文本或图标颜色 */
+  --md-sys-color-inverse-primary: rgb(173 199 255); /* 反转主色 */
+  --md-sys-color-primary-fixed: rgb(216 226 255); /* 固定主色 */
+  --md-sys-color-on-primary-fixed: rgb(0 26 65); /* 固定主色上的文本或图标颜色 */
+  --md-sys-color-primary-fixed-dim: rgb(173 199 255); /* 固定主色的暗色 */
+  --md-sys-color-on-primary-fixed-variant: rgb(42 70 120); /* 固定主色变体上的文本或图标颜色 */
+  --md-sys-color-secondary-fixed: rgb(219 226 249); /* 固定次要色 */
+  --md-sys-color-on-secondary-fixed: rgb(19 27 44); /* 固定次要色上的文本或图标颜色 */
+  --md-sys-color-secondary-fixed-dim: rgb(190 198 220); /* 固定次要色的暗色 */
+  --md-sys-color-on-secondary-fixed-variant: rgb(63 71 89); /* 固定次要色变体上的文本或图标颜色 */
+  --md-sys-color-tertiary-fixed: rgb(251 215 252); /* 固定第三色 */
+  --md-sys-color-on-tertiary-fixed: rgb(41 19 45); /* 固定第三色上的文本或图标颜色 */
+  --md-sys-color-tertiary-fixed-dim: rgb(222 188 223); /* 固定第三色的暗色 */
+  --md-sys-color-on-tertiary-fixed-variant: rgb(88 62 91); /* 固定第三色变体上的文本或图标颜色 */
+  --md-sys-color-surface-dim: rgb(217 217 224); /* 表面暗色 */
+  --md-sys-color-surface-bright: rgb(249 249 255); /* 表面亮色 */
+  --md-sys-color-surface-container-lowest: rgb(255 255 255); /* 最低表面容器色 */
+  --md-sys-color-surface-container-low: rgb(243 243 250); /* 低表面容器色 */
+  --md-sys-color-surface-container: rgb(237 237 244); /* 表面容器色 */
+  --md-sys-color-surface-container-high: rgb(232 231 238); /* 高表面容器色 */
+  --md-sys-color-surface-container-highest: rgb(226 226 233); /* 最高表面容器色 */
+}
