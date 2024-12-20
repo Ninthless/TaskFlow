@@ -1,43 +1,224 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>任务管理 - 个人任务管理与日程安排系统</title>
 
-    <!-- Material Design Web Components -->
-    <!-- 1. Material Symbols 图标 -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
-    <!-- 2. Material Design Web Components 核心样式 -->
-    <link href="https://cdn.jsdelivr.net/npm/@material/web@1.1.1/dist/all.min.css" rel="stylesheet">
-    
-    <!-- 3. Material Design Web Components 核心脚本 -->
+    <!-- Material Symbols 图标 -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Material Web Components -->
+    <script type="importmap">
+        {
+          "imports": {
+            "@material/web/": "https://esm.run/@material/web/"
+          }
+        }
+    </script>
     <script type="module">
         import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
 
-    <!-- 4. Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <!-- 5. 自定义样式 -->
+    <!-- 自定义样式 -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/light.css">
     <link rel="stylesheet" href="css/dark.css">
+    <link rel="stylesheet" href="css/tasks.css">
 </head>
+
 <body class="light">
     <!-- 导入导航栏 -->
     <div id="nav-container"></div>
 
     <!-- 页面主要内容 -->
     <main class="main-content">
-        <h1>任务管理</h1>
-        <!-- 这里添加任务管理相关的内容 -->
+        <div class="tasks-header">
+            <div class="md-typescale-headline-large">任务管理</div>
+            <md-filled-tonal-button id="add-task-btn">
+                <md-icon slot="icon">add</md-icon>
+                新建任务
+            </md-filled-tonal-button>
+        </div>
+
+        <!-- 任务列表 -->
+        <div class="tasks-container">
+            <div id="tasks-list" role="list"></div>
+        </div>
+
+        <!-- 新建任务对话框 -->
+        <md-dialog id="task-dialog" scrimClickAction="close" escapeKeyAction="close">
+            <div slot="headline" class="md-typescale-headline-small">新建任务</div>
+            <form slot="content" id="task-form" class="task-form">
+                <md-outlined-text-field label="任务名称" type="text" id="task-name" required name="task-name"
+                    error-text="请输入任务名称" class="md-typescale-body-large" supporting-text="输入任务的名称"></md-outlined-text-field>
+
+                <md-outlined-select label="优先级" id="task-priority" required name="task-priority"
+                    class="md-typescale-body-large" supporting-text="选择任务的优先级">
+                    <md-select-option value="high">
+                        <div slot="headline">高优先级</div>
+                    </md-select-option>
+                    <md-select-option value="medium" selected>
+                        <div slot="headline">中优先级</div>
+                    </md-select-option>
+                    <md-select-option value="low">
+                        <div slot="headline">低优先级</div>
+                    </md-select-option>
+                </md-outlined-select>
+
+                <div class="date-time-fields">
+                    <md-filled-text-field label="截止日期" type="text" id="task-due-date" required readonly
+                        error-text="请选择截止日期" class="md-typescale-body-large" supporting-text="点击选择日期">
+                        <md-icon slot="trailing-icon">calendar_month</md-icon>
+                    </md-filled-text-field>
+
+                    <md-filled-text-field 
+                        label="截止时间" 
+                        type="text" 
+                        id="task-due-time" 
+                        class="task-due-time"
+                        required 
+                        readonly
+                        error-text="请选择截止时间" 
+                        supporting-text="点击选择时间">
+                        <md-icon slot="trailing-icon">schedule</md-icon>
+                    </md-filled-text-field>
+                </div>
+
+                <md-outlined-text-field label="描述" type="text" id="task-description" rows="3"
+                    name="task-description" multiline class="md-typescale-body-large" supporting-text="添加任务的详细描述（可选）"></md-outlined-text-field>
+            </form>
+            <div slot="actions">
+                <md-text-button id="cancel-task-btn">取消</md-text-button>
+                <md-filled-button id="save-task-btn">保存</md-filled-button>
+            </div>
+        </md-dialog>
+
+        <!-- 编辑任务对话框 -->
+        <md-dialog id="edit-task-dialog" scrimClickAction="close" escapeKeyAction="close">
+            <div slot="headline" class="md-typescale-headline-small">编辑任务</div>
+            <form slot="content" id="edit-task-form" class="task-form">
+                <md-outlined-text-field label="任务名称" type="text" id="edit-task-name" required name="task-name"
+                    error-text="请输入任务名称" class="md-typescale-body-large" supporting-text="输入任务的名称"></md-outlined-text-field>
+
+                <md-outlined-select label="优先级" id="edit-task-priority" required name="task-priority"
+                    class="md-typescale-body-large" supporting-text="选择任务的优先级">
+                    <md-select-option value="high">
+                        <div slot="headline">高优先级</div>
+                    </md-select-option>
+                    <md-select-option value="medium">
+                        <div slot="headline">中优先级</div>
+                    </md-select-option>
+                    <md-select-option value="low">
+                        <div slot="headline">低优先级</div>
+                    </md-select-option>
+                </md-outlined-select>
+
+                <div class="date-time-fields">
+                    <md-filled-text-field label="截止日期" type="text" id="edit-task-due-date" required readonly
+                        error-text="请选择截止日期" class="md-typescale-body-large" supporting-text="点击选择日期">
+                        <md-icon slot="trailing-icon">calendar_month</md-icon>
+                    </md-filled-text-field>
+
+                    <md-filled-text-field label="截止时间" type="text" id="edit-task-due-time" required readonly
+                        error-text="请选择截止时间" class="md-typescale-body-large" supporting-text="点击选择时间">
+                        <md-icon slot="trailing-icon">schedule</md-icon>
+                    </md-filled-text-field>
+                </div>
+
+                <md-outlined-text-field label="描述" type="text" id="edit-task-description" rows="3"
+                    name="task-description" multiline class="md-typescale-body-large" supporting-text="添加任务的详细描述（可选）"></md-outlined-text-field>
+            </form>
+            <div slot="actions">
+                <md-text-button id="edit-cancel-btn">取消</md-text-button>
+                <md-filled-button id="edit-save-btn">保存更改</md-filled-button>
+            </div>
+        </md-dialog>
+
+        <!-- 日期选择器对话框 -->
+        <md-dialog id="date-picker-dialog">
+            <div slot="headline" class="md-typescale-headline-small">选择日期</div>
+            <div slot="content" class="calendar-container">
+                <div class="calendar-header">
+                    <md-icon-button id="prev-month-btn">
+                        <md-icon>chevron_left</md-icon>
+                    </md-icon-button>
+                    <span id="current-month-year" class="md-typescale-title-large"></span>
+                    <md-icon-button id="next-month-btn">
+                        <md-icon>chevron_right</md-icon>
+                    </md-icon-button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="weekday-header md-typescale-label-large">日</div>
+                    <div class="weekday-header md-typescale-label-large">一</div>
+                    <div class="weekday-header md-typescale-label-large">二</div>
+                    <div class="weekday-header md-typescale-label-large">三</div>
+                    <div class="weekday-header md-typescale-label-large">四</div>
+                    <div class="weekday-header md-typescale-label-large">五</div>
+                    <div class="weekday-header md-typescale-label-large">六</div>
+                </div>
+                <div id="calendar-days" class="calendar-grid"></div>
+            </div>
+            <div slot="actions">
+                <md-text-button id="cancel-date-btn">取消</md-text-button>
+                <md-filled-button id="confirm-date-btn">确认</md-filled-button>
+            </div>
+        </md-dialog>
+
+        <!-- 时间选择器对话框 -->
+        <md-dialog id="time-picker-dialog" class="time-picker-dialog">
+            <div slot="headline">
+                <span class="md-typescale-headline-small">选择时间</span>
+            </div>
+            <div slot="content" class="time-picker-content">
+                <div class="time-input-group">
+                    <div class="time-input-field">
+                        <md-filled-text-field
+                            type="text"
+                            id="hour-input"
+                            label="小时"
+                            maxlength="2"
+                            placeholder="00"
+                            error-text="请输入0-23之间的有效小时"
+                            supporting-text="0-23"
+                            class="time-input">
+                        </md-filled-text-field>
+                    </div>
+                    <span class="time-separator">:</span>
+                    <div class="time-input-field">
+                        <md-filled-text-field
+                            type="text"
+                            id="minute-input"
+                            label="分钟"
+                            maxlength="2"
+                            placeholder="00"
+                            error-text="请输入0-59之间的有效分钟"
+                            supporting-text="0-59"
+                            class="time-input">
+                        </md-filled-text-field>
+                    </div>
+                </div>
+            </div>
+            <div slot="actions">
+                <md-text-button id="cancel-time-btn">取消</md-text-button>
+                <md-filled-button id="confirm-time-btn">确认</md-filled-button>
+            </div>
+        </md-dialog>
     </main>
 
     <!-- 导入导航栏和初始化主题 -->
     <script src="js/app.js"></script>
+    <script src="js/tasks.js"></script>
     <script>
         // 加载导航栏
         fetch('templates/nav.html')
@@ -49,4 +230,5 @@
             });
     </script>
 </body>
+
 </html>

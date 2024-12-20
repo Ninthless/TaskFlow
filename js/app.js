@@ -1,6 +1,6 @@
 // 主题切换功能
 function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggle = document.querySelector('.theme-toggle');
     if (!themeToggle) {
         console.error('Theme toggle button not found');
         return;
@@ -35,15 +35,15 @@ function setTheme(theme) {
 // 添加页面过渡处理
 function handleNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
-            
+
             // 添加离开动画
             document.querySelector('.main-content').classList.add('page-exit');
-            
+
             // 等待动画完成后加载新页面
             setTimeout(() => {
                 window.location.href = href;
@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navContainer) {
         const observer = new MutationObserver(() => {
             setActiveLink();
-            handleNavigation(); // 添加导航处理
+            handleNavigation();
         });
-        
+
         observer.observe(navContainer, {
             childList: true,
             subtree: true

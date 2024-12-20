@@ -1,232 +1,663 @@
 /* 全局样式重置 */
 * {
-    margin: 0; /* 移除默认外边距 */
-    padding: 0; /* 移除默认内边距 */
-    box-sizing: border-box; /* 包括内边距和边框在内的总宽度和高度 */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* 设置 body 的字体和背景颜色 */
 body {
-    font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; /* 字体系列 */
-    background-color: var(--md-sys-color-background); /* 背景颜色 */
-    color: var(--md-sys-color-on-background); /* 字体颜色 */
-    line-height: 1.5; /* 行高 */
+    font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    line-height: 1.5;
 }
 
 /* 导航栏样式 */
 .navigation-bar {
-    display: flex; /* 使用 flex 布局 */
-    flex-direction: column; /* 垂直排列子元素 */
-    justify-content: space-between; /* 主轴对齐方式 */
-    align-items: center; /* 交叉轴对齐方式 */
-    width: 72px; /* 宽度 */
-    height: 100vh; /* 高度，占满视口高度 */
-    padding: 16px 0; /* 内边距 */
-    background-color: var(--md-sys-color-surface); /* 背景颜色 */
-    border-right: 1px solid var(--md-sys-color-outline-variant); /* 右边框 */
-    position: fixed; /* 固定定位 */
-    top: 0; /* 距离顶部 0 */
-    left: 0; /* 距离左侧 0 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 72px;
+    height: 100vh;
+    padding: 16px 0;
+    background-color: var(--md-sys-color-surface);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 /* 导航栏顶部样式 */
 .nav-top {
-    display: flex; /* 使用 flex 布局 */
-    flex-direction: column; /* 垂直排列子元素 */
-    align-items: center; /* 交叉轴对齐方式 */
-    width: 100%; /* 宽度 */
-    gap: 16px; /* 导航项间距 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
 }
 
 /* 导航栏底部样式 */
 .nav-bottom {
-    display: flex; /* 使用 flex 布局 */
-    flex-direction: column; /* 垂直排列子元素 */
-    align-items: center; /* 交叉轴对齐方式 */
-    width: 100%; /* 宽度 */
-    padding: 8px 0; /* 内边距 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0;
 }
 
 /* 主题切换按钮样式 */
 .theme-toggle {
-    border: none; /* 无边框 */
-    background: none; /* 无背景 */
-    cursor: pointer; /* 鼠标指针样式 */
-    padding: 8px; /* 内边距 */
-    border-radius: 50%; /* 圆形边框 */
-    color: var(--md-sys-color-on-surface); /* 字体颜色 */
-    display: flex; /* 使用 flex 布局 */
-    align-items: center; /* 交叉轴对齐方式 */
-    justify-content: center; /* 主轴对齐方式 */
-    transition: background-color 0.3s; /* 背景颜色过渡效果 */
-    width: 40px; /* 宽度 */
-    height: 40px; /* 高度 */
-    margin: 0; /* 外边距 */
+    --md-icon-button-icon-size: 24px;
+    --md-icon-button-state-layer-width: 40px;
+    --md-icon-button-state-layer-height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 50%;
+    color: var(--md-sys-color-on-surface);
+    transition: background-color 0.2s;
 }
 
-/* 主题切换悬停效果 */
 .theme-toggle:hover {
-    background-color: var(--md-sys-color-surface-variant); /* 悬停背景颜色 */
+    background-color: var(--md-sys-color-surface-variant);
 }
 
-/* 主题切换按钮图标样式 */
-.theme-toggle .material-symbols-rounded {
-    font-size: 24px; /* 字体大小 */
-    transition: transform 0.3s; /* 变换过渡效果 */
+.theme-toggle md-icon {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+    color: var(--md-sys-color-on-surface);
 }
 
-/* 主题切换按钮悬停时图标效果 */
-.theme-toggle:hover .material-symbols-rounded {
-    transform: scale(1.1); /* 放大效果 */
+.theme-toggle:hover md-icon {
+    transform: scale(1.1);
 }
 
 /* 菜单按钮区域样式 */
 .menu-button-area {
-    display: flex; /* 使用 flex 布局 */
-    flex-direction: column; /* 垂直排列子元素 */
-    align-items: center; /*  交叉轴对齐方式 */
-    justify-content: center; /* 主轴对齐方式 */
-    width: 40px; /* 宽度 */
-    height: 56px; /* 高度 */
-    cursor: pointer; /* 鼠标指针样式 */
-    transition: background-color 0.3s; /* 背景颜色过渡效果 */
-    gap: 8px; /* 图标和文字间距 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 56px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    gap: 8px;
 }
 
 /* 菜单按钮图标容器样式 */
 .menu-button-area .icon-container {
-    width: 50px; /* 宽度 */
-    height: 30px; /* 高度 */
-    display: flex; /* 使用 flex 布局 */
-    align-items: center; /* 交叉轴对齐方式 */
-    justify-content: center; /* 主轴对齐方式 */
-    border-radius: 20px; /* 圆角边框 */
+    width: 50px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
 }
 
 /* 菜单按钮图标容器悬停效果 */
 .menu-button-area .icon-container:hover {
-    background-color: var(--md-sys-color-surface-variant); /* 悬停背景颜色 */
-}
-
-/* 菜单按钮图标样式 */
-.menu-button-area .material-symbols-outlined {
-    font-size: 22px; /* 图标字体大小 */
-    color: var(--md-sys-color-on-surface); /* 图标颜色 */
-    transition: transform 0.3s; /* 变换过渡效果 */
+    background-color: var(--md-sys-color-surface-variant);
 }
 
 /* 菜单按钮标签样式 */
 .menu-button-area .button-label {
-    font-size: 12px; /* 字体大小 */
-    color: var(--md-sys-color-on-surface); /* 字体颜色 */
-    text-align: center; /* 文本居中 */
-}
-
-/* 菜单按钮图标容器悬停时图标效果 */
-.menu-button-area .icon-container:hover .material-symbols-outlined {
-    transform: scale(1.1); /* 放大效果 */
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface);
+    text-align: center;
 }
 
 /* 导航链接样式 */
 .nav-link {
-    text-decoration: none; /* 移除下划线 */
-    color: inherit; /* 继承颜色 */
-    width: 100%; /* 宽度 */
-    display: flex; /* 使用 flex 布局 */
-    justify-content: center; /* 主轴对齐方式 */
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /* 活动导航链接样式 */
 .nav-link.active .menu-button-area {
-    position: relative; /* 相对定位 */
+    position: relative;
 }
 
 /* 活动导航链接背景效果 */
 .nav-link.active .menu-button-area::before {
-    content: ''; /* 空内容 */
-    position: absolute; /* 绝对定位 */
-    left: 50%; /* 左侧 50% */
-    top: 1px; /* 顶部 1px */
-    transform: translateX(-50%); /* 水平居中 */
-    width: 50px; /* 宽度 */
-    height: 30px; /* 高度 */
-    background-color: var(--md-sys-color-primary); /* 背景颜色 */
-    border-radius: 20px; /* 圆角边框 */
-    opacity: 0.1; /* 透明度 */
-    z-index: -1; /* 层级 */
-}
-
-/* 活动导航链接图标和标签样式 */
-.nav-link.active .material-symbols-outlined,
-.nav-link.active .button-label {
-    color: var(--md-sys-color-primary); /* 颜色 */
-    font-variation-settings: 'FILL' 1; /* 字体设置 */
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 1px;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 30px;
+    background-color: var(--md-sys-color-primary);
+    border-radius: 20px;
+    opacity: 0.1;
+    z-index: -1;
 }
 
 /* 主要内容样式 */
 .main-content {
-    margin-left: 72px; /* 左外边距 */
-    padding: 24px; /* 内边距 */
-    min-height: 100vh; /* 最小高度 */
-    opacity: 0; /* 初始透明度 */
-    transform: translateY(20px); /* 初始位置 */
-    animation: fadeIn 0.3s ease-out forwards; /* 淡入动画 */
+    margin-left: 72px;
+    padding: 24px;
+    min-height: 100vh;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.3s ease-out forwards;
 }
 
 /* 淡入动画关键帧 */
 @keyframes fadeIn {
     from {
-        opacity: 0; /* 初始透明度 */
-        transform: translateY(20px); /* 初始位置 */
+        opacity: 0;
+        transform: translateY(20px);
     }
     to {
-        opacity: 1; /* 最终透明度 */
-        transform: translateY(0); /* 最终位置 */
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* 页面离开效果 */
-.page-exit {
-    opacity: 1; /* 初始透明度 */
-    transition: opacity 0.2s ease-out; /* 透明度过渡效果 */
+/* 任务页面样式 */
+.tasks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 0 4px;
 }
 
-/* 页面离开活动效果 */
-.page-exit-active {
-    opacity: 0; /* 最终透明度 */
+.tasks-container {
+    background-color: var(--md-sys-color-surface);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--md-elevation-level1);
 }
 
-/* 图标动画样式 */
-.animated-icon {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 变换过渡效果 */
+/* 任务项样式 */
+.task-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    background-color: var(--md-sys-color-surface-container-low);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 导航链接悬停时图标效果 */
-.nav-link:hover .animated-icon {
-    transform: scale(1.1); /* 放大效果 */
+.task-item:last-child {
+    margin-bottom: 0;
 }
 
-/* 活动导航链接图标效果 */
-.nav-link.active .animated-icon {
-    transform: scale(1.2); /* 放大效果 */
-    --md-icon-button-state-layer-shape: 0; /* 图标按钮状态层形状 */
-    --md-icon-button-state-layer-color: var(--md-sys-color-primary); /* 图标按钮状态层颜色 */
+.task-item:hover {
+    background-color: var(--md-sys-color-surface-container);
+    box-shadow: var(--md-elevation-level1);
+    transform: translateY(-1px);
+}
+
+/* 优先级图标样式 */
+.priority-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    margin-right: 16px;
+    flex-shrink: 0;
+    background-color: var(--md-sys-color-surface-container);
+}
+
+.priority-icon md-icon {
+    --md-icon-size: 24px;
+    transition: all 0.2s ease;
+}
+
+.priority-icon.priority-high md-icon {
+    color: var(--md-sys-color-error);
+    font-variation-settings: 'FILL' 1;
+}
+
+.priority-icon.priority-medium md-icon {
+    color: var(--md-sys-color-tertiary);
+    font-variation-settings: 'FILL' 1;
+}
+
+.priority-icon.priority-low md-icon {
+    color: var(--md-sys-color-primary);
+    font-variation-settings: 'FILL' 1;
+}
+
+/* 任务内容样式 */
+.task-content {
+    flex: 1;
+    margin-right: 16px;
+    min-width: 0;
+}
+
+.task-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.task-details {
+    font-size: 14px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.task-due-date,
+.task-description {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.task-due-date md-icon,
+.task-description md-icon {
+    --md-icon-size: 18px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.task-description {
+    margin-top: 8px;
+}
+
+/* 任务操作按钮样式 */
+.task-actions {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+}
+
+.task-actions md-icon-button {
+    --md-icon-button-icon-size: 20px;
+    --md-icon-button-state-layer-width: 36px;
+    --md-icon-button-state-layer-height: 36px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.task-actions md-icon-button:hover {
+    color: var(--md-sys-color-on-surface);
+}
+
+/* Material Design 3 对话框样式调整 */
+md-dialog {
+    --md-dialog-container-color: var(--md-sys-color-surface-container);
+    --md-dialog-container-shape: 16px;
+    --md-dialog-headline-color: var(--md-sys-color-on-surface);
+    --md-dialog-supporting-text-color: var(--md-sys-color-on-surface-variant);
+    position: fixed;
+    inset: 0;
+    margin: auto !important;
+    max-height: 90vh;
+    max-width: 90vw;
+}
+
+/* 表单样式 */
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 560px;
+    max-width: 100%;
+}
+
+/* 对话框内容区域样式 */
+md-dialog [slot="content"] {
+    padding: 8px 24px 24px;
+    margin: 0;
+    overflow-y: auto;
+    max-height: calc(90vh - 120px);
+}
+
+/* 对话框标题样式 */
+md-dialog [slot="headline"] {
+    padding: 24px 24px;
+    margin: 0;
+}
+
+/* 对话框操作按钮容器 */
+md-dialog [slot="actions"] {
+    padding: 16px 24px;
+    margin: 0;
+    gap: 12px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface-container-low);
+}
+
+/* 对话框按钮样式 */
+md-dialog [slot="actions"] md-text-button,
+md-dialog [slot="actions"] md-filled-button {
+    min-width: 70px;
+    --md-filled-button-container-height: 40px;
+    --md-filled-button-container-padding-horizontal: 24px;
+    --md-text-button-container-height: 40px;
+    --md-text-button-container-padding-horizontal: 24px;
+}
+
+/* 保存按钮特定样式 */
+#save-task-btn {
+    --md-filled-button-container-color: var(--md-sys-color-primary);
+    --md-filled-button-label-text-color: var(--md-sys-color-on-primary);
+    --md-filled-button-hover-state-layer-color: var(--md-sys-color-on-primary);
+    font-weight: 500;
+}
+
+/* 表单字段样式 */
+md-outlined-text-field,
+md-outlined-select {
+    width: 100%;
+    --md-outlined-field-container-shape: 4px;
+    --md-outlined-field-focus-content-color: var(--md-sys-color-on-surface);
+    --md-outlined-field-hover-content-color: var(--md-sys-color-on-surface);
+    --md-outlined-field-focus-label-text-color: var(--md-sys-color-primary);
+    --md-outlined-field-focus-outline-color: var(--md-sys-color-primary);
+    --md-outlined-field-hover-outline-color: var(--md-sys-color-outline);
+    --md-outlined-field-container-padding-vertical: 8px;
+    --md-outlined-field-container-padding-horizontal: 16px;
+}
+
+/* 下拉选择框选项样式 */
+md-select-option {
+    --md-menu-item-container-color: var(--md-sys-color-surface-container);
+    --md-menu-item-hover-state-layer-color: var(--md-sys-color-on-surface);
+    --md-menu-item-hover-state-layer-opacity: 0.08;
+    --md-menu-item-selected-container-color: var(--md-sys-color-surface-container-highest);
+    height: 56px;
+}
+
+
+
+
+/* Material Design 3 按钮样式调整 */
+md-filled-tonal-button {
+    --md-filled-tonal-button-container-shape: 20px;
+    --md-filled-tonal-button-container-height: 40px;
+    --md-filled-tonal-button-container-padding-horizontal: 32px;
+    min-width: 120px;
+}
+
+/* "新建任务"按钮特定样式 */
+#add-task-btn {
+    --md-filled-tonal-button-container-color: var(--md-sys-color-primary-container);
+    --md-filled-tonal-button-label-text-color: var(--md-sys-color-on-primary-container);
+    --md-filled-tonal-button-hover-state-layer-color: var(--md-sys-color-on-primary-container);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+md-filled-button {
+    --md-filled-button-container-shape: 22px;
+    --md-filled-button-container-height: 40px;
+    --md-filled-button-container-padding-horizontal: 24px;
+}
+
+md-text-button {
+    --md-text-button-container-shape: 22px;
+    --md-text-button-container-height: 40px;
+    --md-text-button-container-padding-horizontal: 12px;
 }
 
 /* 图标样式 */
 md-icon {
-    font-variation-settings: 'FILL' 0; /* 字体设置 */
-    transition: font-variation-settings 0.3s ease; /* 字体设置过渡效果 */
+    font-variation-settings: 'FILL' 0;
+    transition: font-variation-settings 0.3s ease;
 }
 
 /* 活动导航链接图标样式 */
 .nav-link.active md-icon {
-    font-variation-settings: 'FILL' 1; /* 字体设置 */
+    font-variation-settings: 'FILL' 1;
 }
 
-/* 区域标题 */
-section h2 {
-    font-size: 20px;
+/* 空状态样式 */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: 16px;
+}
+
+.empty-state .empty-icon {
+    --md-icon-size: 48px;
+    color: var(--md-sys-color-on-surface-variant);
     margin-bottom: 16px;
+    font-variation-settings: 'FILL' 1;
+}
+
+.empty-state .empty-text {
+    font-size: 20px;
+    font-weight: 500;
     color: var(--md-sys-color-on-surface);
+    margin-bottom: 8px;
+}
+
+.empty-state .empty-description {
+    font-size: 14px;
+    color: var(--md-sys-color-on-surface-variant);
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+/* 日期时间字段容器样式 */
+.date-time-fields {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.date-time-fields md-filled-text-field {
+    flex: 1;
+    --md-filled-field-container-shape: 4px;
+    --md-filled-field-focus-content-color: var(--md-sys-color-on-surface);
+    --md-filled-field-hover-content-color: var(--md-sys-color-on-surface);
+    --md-filled-field-focus-label-text-color: var(--md-sys-color-primary);
+    --md-filled-field-focus-supporting-text-color: var(--md-sys-color-primary);
+    --md-filled-field-focus-outline-color: var(--md-sys-color-primary);
+    --md-filled-field-hover-outline-color: var(--md-sys-color-outline);
+    --md-filled-field-container-padding-vertical: 8px;
+    --md-filled-field-container-padding-horizontal: 16px;
+}
+
+/* 日期选择器对话框样式 */
+.date-picker-dialog,
+.time-picker-dialog {
+    --md-dialog-container-color: var(--md-sys-color-surface);
+    --md-dialog-container-shape: 28px;
+    --md-dialog-headline-color: var(--md-sys-color-on-surface);
+    --md-dialog-supporting-text-color: var(--md-sys-color-on-surface-variant);
+    max-width: 360px;
+    margin: 24px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.calendar-header .current-month {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    padding: 8px;
+}
+
+.calendar-weekday {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
+    padding: 8px 0;
+    margin-bottom: 4px;
+}
+
+.calendar-day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    border-radius: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:not(.disabled):hover {
+    background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.calendar-day span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+    z-index: 1;
+}
+
+.calendar-day.disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+.calendar-day.disabled span {
+    color: var(--md-sys-color-on-surface-variant);
+    opacity: 0.38;
+}
+
+.calendar-day.today::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--md-sys-color-primary);
+    border-radius: 50%;
+}
+
+.calendar-day.selected {
+    background-color: var(--md-sys-color-primary);
+}
+
+.calendar-day.selected span {
+    color: var(--md-sys-color-on-primary);
+}
+
+/* 时钟选择器样式 */
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+}
+
+.clock-face {
+    width: 256px;
+    height: 256px;
+    border-radius: 50%;
+    position: relative;
+    background-color: var(--md-sys-color-surface-container-highest);
+    margin: 16px 0;
+    box-shadow: var(--md-elevation-level1);
+}
+
+.clock-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--md-sys-color-primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.clock-hand {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 96px;
+    background-color: var(--md-sys-color-primary);
+    transform-origin: top center;
+    transition: transform 0.2s ease;
+    z-index: 1;
+}
+
+.clock-number {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.clock-number:hover {
+    background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.clock-number.selected {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    font-weight: 500;
+}
+
+/* 日期时间选择器按钮样式 */
+.date-picker-dialog [slot="actions"],
+.time-picker-dialog [slot="actions"] {
+    padding: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.date-picker-dialog [slot="actions"] md-text-button,
+.time-picker-dialog [slot="actions"] md-text-button,
+.date-picker-dialog [slot="actions"] md-filled-button,
+.time-picker-dialog [slot="actions"] md-filled-button {
+    --md-text-button-label-text-font: 500;
+    min-width: 72px;
 }

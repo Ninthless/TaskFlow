@@ -1,0 +1,77 @@
+.time-picker-tooltip {
+    position: absolute;
+    color: var(--md-sys-color-error);
+    padding: 4px 16px 0;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.time-picker-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.time-picker-content {
+    padding: 24px;
+}
+
+.time-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.time-input-field {
+    flex: 1;
+    min-width: 0;
+}
+
+.time-separator {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--md-sys-color-on-surface);
+    margin: 0 4px;
+    padding-top: 14px;
+}
+
+.time-input {
+    width: 100%;
+}
+
+/* 确保错误提示文本不会导致布局跳动 */
+md-filled-text-field {
+    margin-bottom: 20px;
+}
+
+/* 对话框样式 */
+.time-picker-dialog {
+    --_container-color: var(--md-sys-color-surface);
+    --_container-shape: var(--md-sys-shape-corner-extra-large);
+    --_headline-color: var(--md-sys-color-on-surface);
+    --_headline-font: var(--md-sys-typescale-headline-small-font);
+    --_headline-line-height: var(--md-sys-typescale-headline-small-line-height);
+    --_headline-size: var(--md-sys-typescale-headline-small-size);
+    --_headline-weight: var(--md-sys-typescale-headline-small-weight);
+    --_supporting-text-color: var(--md-sys-color-on-surface-variant);
+    --_supporting-text-font: var(--md-sys-typescale-body-medium-font);
+    --_supporting-text-line-height: var(--md-sys-typescale-body-medium-line-height);
+    --_supporting-text-size: var(--md-sys-typescale-body-medium-size);
+    --_supporting-text-weight: var(--md-sys-typescale-body-medium-weight);
+    --md-dialog-container-color: var(--_container-color);
+    --md-dialog-container-shape: var(--_container-shape);
+}
+
+// ... existing code ... 
