@@ -1055,4 +1055,63 @@
     align-self: center;
     padding-top: 16px;
 }
-  
+
+
+/* 时间选择器对话框 */
+.time-picker-dialog {
+    --md-dialog-container-color: var(--md-sys-color-surface);
+    --md-dialog-container-shape: 28px;
+    min-width: 280px;
+    max-width: 280px;
+}
+
+.time-picker-content {
+    padding: 0 24px 24px;
+}
+
+.time-input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 24px 0;
+}
+
+.time-input-field {
+    width: 80px;
+}
+
+.time-input {
+    width: 100%;
+    --md-filled-field-container-shape: 4px;
+    --md-filled-field-container-color: var(--md-sys-color-surface-container-highest);
+    --md-filled-field-input-text-font: var(--md-sys-typescale-title-large-font);
+    --md-filled-field-input-text-size: var(--md-sys-typescale-title-large-size);
+    --md-filled-field-input-text-line-height: var(--md-sys-typescale-title-large-line-height);
+    --md-filled-field-input-text-weight: var(--md-sys-typescale-title-large-weight);
+    --md-filled-field-container-padding-vertical: 8px;
+    --md-filled-field-container-padding-horizontal: 12px;
+    --md-filled-field-supporting-text-color: transparent;
+    --md-filled-field-error-supporting-text-color: transparent;
+}
+
+.time-input::part(input) {
+    text-align: center;
+}
+
+.time-separator {
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    line-height: var(--md-sys-typescale-title-large-line-height);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    color: var(--md-sys-color-on-surface-variant);
+    padding-top: 8px;
+}
+
+[slot="actions"] {
+    padding: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+} 

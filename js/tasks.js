@@ -289,7 +289,7 @@ class TaskUI {
         // 保存当前选择的时间
         this.currentTime = time;
         
-        // 设置显示的时间
+        // 设��显示的时间
         const hours = time.getHours();
         const minutes = time.getMinutes();
         
@@ -340,15 +340,10 @@ class TaskUI {
                 }
                 if (numValue > 23) {
                     value = '23';
-                    newHourInput.error = true;
-                } else if (numValue < 0) {
-                    value = '00';
-                    newHourInput.error = true;
-                } else {
-                    newHourInput.error = false;
                 }
-            } else {
-                newHourInput.error = false;
+                if (numValue < 0) {
+                    value = '00';
+                }
             }
             e.target.value = value;
             this.validateTimeInputs();
@@ -365,15 +360,10 @@ class TaskUI {
                 }
                 if (numValue > 59) {
                     value = '59';
-                    newMinuteInput.error = true;
-                } else if (numValue < 0) {
-                    value = '00';
-                    newMinuteInput.error = true;
-                } else {
-                    newMinuteInput.error = false;
                 }
-            } else {
-                newMinuteInput.error = false;
+                if (numValue < 0) {
+                    value = '00';
+                }
             }
             e.target.value = value;
             this.validateTimeInputs();
@@ -412,7 +402,6 @@ class TaskUI {
                         e.preventDefault();
                         const nextValue = value >= max ? 0 : value + 1;
                         input.value = nextValue.toString().padStart(2, '0');
-                        input.error = false;
                         this.validateTimeInputs();
                         break;
                         
@@ -420,7 +409,6 @@ class TaskUI {
                         e.preventDefault();
                         const prevValue = value <= 0 ? max : value - 1;
                         input.value = prevValue.toString().padStart(2, '0');
-                        input.error = false;
                         this.validateTimeInputs();
                         break;
                         
@@ -438,7 +426,6 @@ class TaskUI {
                     case 'Tab':
                         if (!input.value) {
                             input.value = '00';
-                            input.error = false;
                             this.validateTimeInputs();
                         }
                         break;
@@ -477,7 +464,7 @@ class TaskUI {
         // 2秒后隐藏错误提示
         setTimeout(() => {
             tooltipContainer.classList.remove('show');
-            // 如果错误消息没有被更新，则清除错误状态
+            // 如果错���消息没有被更新，则清除错误状态
             if (tooltipContainer.textContent === message) {
                 input.error = false;
             }
@@ -494,10 +481,6 @@ class TaskUI {
         
         const isHourValid = !isNaN(hourValue) && hourValue >= 0 && hourValue <= 23;
         const isMinuteValid = !isNaN(minuteValue) && minuteValue >= 0 && minuteValue <= 59;
-        
-        // 更新错误状态
-        hourInput.error = !isHourValid;
-        minuteInput.error = !isMinuteValid;
         
         const isValid = isHourValid && isMinuteValid;
         confirmBtn.disabled = !isValid;
@@ -627,7 +610,7 @@ class TaskUI {
                 return new Date();
             }
             
-            // 解析日期
+            // 解析日���
             let year, month, day;
             if (dateStr.includes('-')) {
                 [year, month, day] = dateStr.split('-').map(num => parseInt(num, 10));
@@ -794,7 +777,7 @@ class TaskUI {
         
         // 初始化当前选择的日期时间
         this.currentDateTime = new Date();
-        this.currentDateTime.setHours(12, 0, 0, 0); // 默认设置为中午12点
+        this.currentDateTime.setHours(12, 0, 0, 0); // 默认设置���中午12点
         
         // 更新显示
         this.updateDateTimeDisplay();
@@ -1005,15 +988,10 @@ class TaskUI {
                 }
                 if (numValue > 23) {
                     value = '23';
-                    newHourInput.error = true;
-                } else if (numValue < 0) {
-                    value = '00';
-                    newHourInput.error = true;
-                } else {
-                    newHourInput.error = false;
                 }
-            } else {
-                newHourInput.error = false;
+                if (numValue < 0) {
+                    value = '00';
+                }
             }
             e.target.value = value;
             this.validateTimeInputs();
@@ -1030,15 +1008,10 @@ class TaskUI {
                 }
                 if (numValue > 59) {
                     value = '59';
-                    newMinuteInput.error = true;
-                } else if (numValue < 0) {
-                    value = '00';
-                    newMinuteInput.error = true;
-                } else {
-                    newMinuteInput.error = false;
                 }
-            } else {
-                newMinuteInput.error = false;
+                if (numValue < 0) {
+                    value = '00';
+                }
             }
             e.target.value = value;
             this.validateTimeInputs();
@@ -1077,7 +1050,6 @@ class TaskUI {
                         e.preventDefault();
                         const nextValue = value >= max ? 0 : value + 1;
                         input.value = nextValue.toString().padStart(2, '0');
-                        input.error = false;
                         this.validateTimeInputs();
                         break;
                         
@@ -1085,7 +1057,6 @@ class TaskUI {
                         e.preventDefault();
                         const prevValue = value <= 0 ? max : value - 1;
                         input.value = prevValue.toString().padStart(2, '0');
-                        input.error = false;
                         this.validateTimeInputs();
                         break;
                         
@@ -1103,7 +1074,6 @@ class TaskUI {
                     case 'Tab':
                         if (!input.value) {
                             input.value = '00';
-                            input.error = false;
                             this.validateTimeInputs();
                         }
                         break;
@@ -1122,10 +1092,6 @@ class TaskUI {
         
         const isHourValid = !isNaN(hourValue) && hourValue >= 0 && hourValue <= 23;
         const isMinuteValid = !isNaN(minuteValue) && minuteValue >= 0 && minuteValue <= 59;
-        
-        // 更新错误状态
-        hourInput.error = !isHourValid;
-        minuteInput.error = !isMinuteValid;
         
         const isValid = isHourValid && isMinuteValid;
         confirmBtn.disabled = !isValid;
