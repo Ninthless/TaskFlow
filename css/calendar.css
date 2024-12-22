@@ -1,0 +1,385 @@
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.current-month-year {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    min-width: 160px;
+    text-align: center;
+    color: var(--md-sys-color-on-surface);
+}
+
+.calendar-area {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-sys-color-surface);
+    border-radius: 28px;
+    box-shadow: var(--md-sys-elevation-1);
+    padding: 24px;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-schedule-List {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-sys-color-surface);
+    border-radius: 28px;
+    box-shadow: var(--md-sys-elevation-1);
+    overflow: hidden;
+    min-width: 360px;
+    max-width: 420px;
+}
+
+.schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background-color: var(--md-sys-color-surface);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.selected-date {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.schedule-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    background-color: var(--md-sys-color-surface);
+}
+
+.schedule-list::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.schedule-list::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface-container);
+    border-radius: 4px;
+}
+
+.schedule-list::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.schedule-list::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-outline-variant);
+}
+
+.schedule-list {
+    scrollbar-color: var(--md-sys-color-outline) var(--md-sys-color-surface-container);
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    background-color: var(--md-sys-color-surface-container);
+    border-radius: 24px;
+    margin: 16px;
+}
+
+.empty-state .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: var(--md-sys-color-outline);
+}
+
+.empty-state p {
+    font-size: 16px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
+    text-align: center;
+}
+
+md-list-item {
+    margin: 8px 0;
+    border-radius: 16px;
+    background-color: var(--md-sys-color-surface-container);
+    transition: all 0.2s ease;
+    --md-list-item-container-color: transparent;
+}
+
+md-list-item:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    transform: translateX(4px);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+md-list-item [slot="headline"] {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+md-list-item [slot="supporting-text"] {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.schedule-time-icon {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+    color: var(--md-sys-color-primary);
+}
+
+md-list-item [slot="start"] md-icon {
+    color: var(--md-sys-color-primary);
+    font-size: 24px;
+}
+
+md-list-item [slot="end"] {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+md-list-item:hover [slot="end"] {
+    opacity: 1;
+}
+
+md-list-item [slot="end"] md-icon-button {
+    --md-icon-button-container-color: var(--md-sys-color-surface-container-highest);
+}
+
+.edit-event md-icon {
+    color: var(--md-sys-color-primary);
+}
+
+.delete-event md-icon {
+    color: var(--md-sys-color-error);
+}
+
+.add-schedule {
+    --md-filled-button-container-color: var(--md-sys-color-primary);
+    --md-filled-button-hover-state-layer-color: var(--md-sys-color-on-primary);
+}
+
+.schedule-management-page-area {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+    min-height: 0;
+    height: calc(100% - 70px);
+    overflow: hidden;
+}
+
+.calendar-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    border-radius: 24px;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 0;
+    position: relative;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    padding: 8px 4px;
+    margin-bottom: 8px;
+}
+
+.weekday {
+    text-align: center;
+    padding: 8px 0;
+    font-weight: 600;
+    color: var(--md-sys-color-primary);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.days {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 12px;
+    padding: 4px;
+    height: 100%;
+}
+
+.day {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 16px;
+    background-color: var(--md-sys-color-surface-container-high);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.day:hover:not(.other-month) {
+    background-color: var(--md-sys-color-surface-container-highest);
+    transform: translateY(-2px);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.day-number {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: 6px;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.day.other-month {
+    background-color: transparent;
+    cursor: default;
+}
+
+.day.other-month .day-number {
+    color: var(--md-sys-color-outline);
+    opacity: 0.4;
+    font-weight: 400;
+}
+
+.day.today {
+    background-color: var(--md-sys-color-secondary-container);
+    border: 2px solid var(--md-sys-color-secondary);
+}
+
+.day.today .day-number {
+    color: var(--md-sys-color-on-secondary-container);
+    font-weight: 700;
+}
+
+.day.selected {
+    background-color: var(--md-sys-color-primary);
+    transform: scale(1.05);
+    box-shadow: var(--md-sys-elevation-2);
+    z-index: 1;
+}
+
+.day.selected .day-number {
+    color: var(--md-sys-color-on-primary);
+    font-weight: 700;
+}
+
+.event-indicator {
+    position: absolute;
+    bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: all 0.2s ease;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.day:hover .event-indicator {
+    transform: scale(1.1);
+}
+
+.day.selected .event-indicator {
+    background-color: var(--md-sys-color-on-primary);
+    color: var(--md-sys-color-primary);
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+.calendar-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.today-button {
+    --md-filled-tonal-button-container-color: var(--md-sys-color-secondary-container);
+    --md-filled-tonal-button-hover-state-layer-color: var(--md-sys-color-secondary);
+    --md-filled-tonal-button-label-text-color: var(--md-sys-color-on-secondary-container);
+}
+
+.prev-month,
+.next-month {
+    --md-icon-button-icon-color: var(--md-sys-color-primary);
+    --md-icon-button-hover-state-layer-color: var(--md-sys-color-primary);
+    transition: transform 0.2s ease;
+}
+
+.prev-month:hover {
+    transform: translateX(-2px);
+}
+
+.next-month:hover {
+    transform: translateX(2px);
+}
+
+/* 页面布局 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.page-header {
+    padding: 8px 0;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--md-sys-color-on-surface);
+}
+
+.schedule-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    min-width: 360px;
+}
+
+.schedule-form md-filled-text-field {
+    width: 100%;
+    --md-filled-text-field-container-color: var(--md-sys-color-surface-container-highest);
+}

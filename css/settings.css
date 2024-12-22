@@ -1,0 +1,13 @@
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.settings-title {
+    font-size: 32px;
+    font-weight: 700;
+}

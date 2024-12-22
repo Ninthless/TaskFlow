@@ -30,11 +30,13 @@
 
         document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <!-- 自定义样式 -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/calendar.css">
     <link rel="stylesheet" href="css/light.css">
     <link rel="stylesheet" href="css/dark.css">
 </head>
@@ -45,12 +47,18 @@
 
     <!-- 页面主要内容 -->
     <main class="main-content">
-        <h1>日历</h1>
-        <!-- 这里添加日历相关的内容 -->
+        <div class="page-header">
+            <h1 class="page-title">日历</h1>
+        </div>
+        <div class="schedule-management-page-area">
+            <div class="calendar-area"></div>
+            <div class="calendar-schedule-List"></div>
+        </div>
     </main>
 
     <!-- 导入导航栏和初始化主题 -->
     <script src="js/app.js"></script>
+    <script src="js/calendar.js"></script>
     <script>
         // 加载导航栏
         fetch('templates/nav.html')
