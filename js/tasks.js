@@ -5,27 +5,54 @@ class TaskManager {
     }
 
     save() {
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        try {
+            if (localStorage.getItem('storageEnabled') !== 'false') {
+                localStorage.setItem('tasks', JSON.stringify(this.tasks));
+                window.snackbar.show('任务保存成功', 'success');
+            }
+        } catch (error) {
+            console.error('保存任务失败:', error);
+            window.snackbar.show('保存任务失败，请重试', 'error');
+        }
     }
 
     addTask(task) {
-        task.id = Date.now();
-        task.createdAt = new Date().toISOString();
-        this.tasks.push(task);
-        this.save();
-        return task;
+        try {
+            task.id = Date.now();
+            task.createdAt = new Date().toISOString();
+            this.tasks.push(task);
+            this.save();
+            window.snackbar.show('任务添加成功', 'success');
+            return task;
+        } catch (error) {
+            console.error('添加任务失败:', error);
+            window.snackbar.show('添加任务失败，请重试', 'error');
+            return null;
+        }
     }
 
     deleteTask(taskId) {
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
-        this.save();
+        try {
+            this.tasks = this.tasks.filter(task => task.id !== taskId);
+            this.save();
+            window.snackbar.show('任务删除成功', 'success');
+        } catch (error) {
+            console.error('删除任务失败:', error);
+            window.snackbar.show('删除任务失败，请重试', 'error');
+        }
     }
 
     updateTask(taskId, updatedTask) {
-        this.tasks = this.tasks.map(task =>
-            task.id === taskId ? { ...task, ...updatedTask } : task
-        );
-        this.save();
+        try {
+            this.tasks = this.tasks.map(task =>
+                task.id === taskId ? { ...task, ...updatedTask } : task
+            );
+            this.save();
+            window.snackbar.show('任务更新成功', 'success');
+        } catch (error) {
+            console.error('更新任务失败:', error);
+            window.snackbar.show('更新任务失败，请重试', 'error');
+        }
     }
 
     getAllTasks() {
@@ -289,7 +316,7 @@ class TaskUI {
         // 保存当前选择的时间
         this.currentTime = time;
         
-        // 设��显示的时间
+        // 设置显示的时间
         const hours = time.getHours();
         const minutes = time.getMinutes();
         
@@ -464,7 +491,7 @@ class TaskUI {
         // 2秒后隐藏错误提示
         setTimeout(() => {
             tooltipContainer.classList.remove('show');
-            // 如果错���消息没有被更新，则清除错误状态
+            // 如果错误消息没有被更��，则清除错误状态
             if (tooltipContainer.textContent === message) {
                 input.error = false;
             }
@@ -548,10 +575,12 @@ class TaskUI {
     handleTaskSubmit() {
         const formData = this.getFormData(this.taskForm);
         if (formData) {
-            this.taskManager.addTask(formData);
-            this.renderTasks();
-            this.dialog.close();
-            this.resetForm();
+            const task = this.taskManager.addTask(formData);
+            if (task) {
+                this.renderTasks();
+                this.dialog.close();
+                this.resetForm();
+            }
         }
     }
 
@@ -610,7 +639,7 @@ class TaskUI {
                 return new Date();
             }
             
-            // 解析日���
+            // 解析日期
             let year, month, day;
             if (dateStr.includes('-')) {
                 [year, month, day] = dateStr.split('-').map(num => parseInt(num, 10));
@@ -777,7 +806,7 @@ class TaskUI {
         
         // 初始化当前选择的日期时间
         this.currentDateTime = new Date();
-        this.currentDateTime.setHours(12, 0, 0, 0); // 默认设置���中午12点
+        this.currentDateTime.setHours(12, 0, 0, 0); // 默认设置中午12点
         
         // 更新显示
         this.updateDateTimeDisplay();
@@ -1203,8 +1232,66 @@ class TaskUI {
             return new Date();
         }
     }
+
+    showAddTaskDialog(existingTask = null) {
+        const isEdit = !!existingTask;
+        const dialog = document.createElement('md-dialog');
+        dialog.innerHTML = `
+            <div slot="headline">${isEdit ? '编辑任务' : '新建任务'}</div>
+            <form slot="content" id="task-form" class="task-form">
+                <md-filled-text-field
+                    label="标题"
+                    required
+                    value="${isEdit ? existingTask.title : ''}"
+                    name="title">
+                </md-filled-text-field>
+                
+                <md-filled-text-field
+                    label="描述"
+                    type="textarea"
+                    rows="3"
+                    value="${isEdit ? existingTask.description : ''}"
+                    name="description">
+                </md-filled-text-field>
+
+                <md-filled-select
+                    label="优先级"
+                    required
+                    value="${isEdit ? existingTask.priority : 'medium'}"
+                    name="priority">
+                    <md-select-option value="high">
+                        <div slot="headline">高优先级</div>
+                    </md-select-option>
+                    <md-select-option value="medium">
+                        <div slot="headline">中优先级</div>
+                    </md-select-option>
+                    <md-select-option value="low">
+                        <div slot="headline">低优先级</div>
+                    </md-select-option>
+                </md-filled-select>
+
+                <md-filled-select
+                    label="状态"
+                    required
+                    value="${isEdit ? existingTask.status : 'todo'}"
+                    name="status">
+                    <md-select-option value="todo">
+                        <div slot="headline">待办</div>
+                    </md-select-option>
+                    <md-select-option value="in-progress">
+                        <div slot="headline">进行中</div>
+                    </md-select-option>
+                    <md-select-option value="done">
+                        <div slot="headline">已完成</div>
+                    </md-select-option>
+                </md-filled-select>
+            </form>
+            <div slot="actions">
+                <md-text-button form="task-form" value="cancel">取消</md-text-button>
+                <md-filled-button form="task-form" value="confirm">确定</md-filled-button>
+            </div>
+        `;
+    }
 }
-
-// 初始化任务UI
+    
 new TaskUI();
-

@@ -178,22 +178,53 @@
 }
 
 /* 任务页面布局 */
+.tasks-container {
+   
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* 任务页面头部 */
 .tasks-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 16px;
+    padding: 0;
 }
 
-/* 任务列表容器 */
-.tasks-container {
-    width: 100%;
-    
-    margin: 0 auto;
-    padding: 16px;
+.tasks-title {
+    font-family: var(--md-sys-typescale-headline-large-font);
+    font-size: var(--md-sys-typescale-headline-large-size);
+    line-height: var(--md-sys-typescale-headline-large-line-height);
+    font-weight: var(--md-sys-typescale-headline-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0;
+}
+
+/* 任务列表区域 */
+.tasks-list-container {
+    flex: 1;
     background-color: var(--md-sys-color-surface);
-    border-radius: 12px;
+    border-radius: 28px;
+    padding: 20px;
     box-shadow: var(--md-sys-elevation-1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.3s ease;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.tasks-list-container:hover {
+    box-shadow: var(--md-sys-elevation-2);
 }
 
 /* 任务列表 */
@@ -201,193 +232,73 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    width: 100%;
+    overflow-y: auto;
+    padding-right: 12px;
 }
 
-/* 任务项 */
-.task-item {
-    position: relative;
-    background-color: var(--md-sys-color-surface-container-low);
-    border-radius: 12px;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-    overflow: hidden;
-    box-shadow: var(--md-sys-elevation-1);
+/* 滚动条样式 */
+#tasks-list::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.task-item:hover {
-    background-color: var(--md-sys-color-surface-container);
-    box-shadow: var(--md-sys-elevation-2);
+#tasks-list::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface-container);
+    border-radius: 4px;
 }
 
-/* 任务内容 */
-.task-content {
-    position: relative;
-    padding: 16px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+#tasks-list::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline);
+    border-radius: 4px;
+    transition: background 0.2s ease;
 }
 
-/* 任务主体区域 */
-.task-main {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    min-width: 0;
+#tasks-list::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-outline-variant);
 }
 
-/* 任务信息区域 */
-.task-info {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
+/* Firefox 滚动条样式 */
+#tasks-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-sys-color-outline) var(--md-sys-color-surface-container);
 }
 
-/* 任务标题行 */
-.task-title-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--md-sys-color-on-surface);
-}
-
-/* 任务标题 */
-.task-name {
-    font-family: var(--md-sys-typescale-title-medium-font);
-    font-size: var(--md-sys-typescale-title-medium-size);
-    line-height: var(--md-sys-typescale-title-medium-line-height);
-    letter-spacing: var(--md-sys-typescale-title-medium-tracking);
-    font-weight: var(--md-sys-typescale-title-medium-weight);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
-    min-width: 0;
-}
-
-/* 支持文本 */
-.task-supporting-text {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.task-supporting-text > div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--md-sys-color-on-surface-variant);
-    font-family: var(--md-sys-typescale-body-medium-font);
-    font-size: var(--md-sys-typescale-body-medium-size);
-    line-height: var(--md-sys-typescale-body-medium-line-height);
-    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
-}
-
-/* 图标样式 */
-.task-icon,
-.supporting-icon {
-    --md-icon-size: 20px;
-    --md-icon-font: 'Material Symbols Outlined';
-    --md-icon-weight: 400;
-    flex-shrink: 0;
-}
-
-.task-icon {
-    color: var(--md-sys-color-primary);
-    margin-bottom: 2px;
-}
-
-.task-priority {
-    font-weight: 500;
-}
-
-.task-due-date.overdue {
-    color: var(--md-sys-color-error);
-}
-
-.task-due-date.overdue .supporting-icon {
-    color: var(--md-sys-color-error);
-}
-
-.task-description {
-    flex-basis: 100%;
-    margin-top: 4px;
-}
-
-.task-description span:last-child {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* 尾部操作按钮 */
-.task-trailing {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-left: 16px;
-}
-
-.task-trailing md-icon-button {
-    --md-icon-button-icon-size: 20px;
-    --md-icon-button-state-layer-width: 40px;
-    --md-icon-button-state-layer-height: 40px;
-}
-
-/* 状态层 */
-.task-state-layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-color: var(--md-sys-color-on-surface);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.task-item:hover .task-state-layer {
-    opacity: 0.05;
-}
-
-.task-item:active .task-state-layer {
-    opacity: 0.08;
-}
-
-/* 空状态 */
+/* 空状态样式 */
 .empty-state {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 16px;
     padding: 48px 24px;
     color: var(--md-sys-color-on-surface-variant);
-    border-radius: 16px;
     text-align: center;
 }
 
 .empty-state .material-symbols-outlined {
-    font-size: 36px;
+    font-size: 48px;
     color: var(--md-sys-color-on-surface-variant);
     opacity: 0.8;
+}
+
+.empty-state-text {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    color: var(--md-sys-color-on-surface-variant);
+    max-width: 400px;
 }
 
 /* 响应式布局 */
 @media (max-width: 600px) {
     .tasks-container {
-        padding: 8px;
+        padding: 16px;
     }
     
-    .task-content {
-        padding: 14px;
-    }
-    
-    .task-supporting-text {
-        gap: 12px;
+    .tasks-list-container {
+        padding: 16px;
+        border-radius: 20px;
     }
     
     .empty-state {
@@ -1118,4 +1029,176 @@
 
 .md-typescale-headline-large {
     font-weight: 700;
+}
+
+/* 任务项样式 */
+.task-item {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 4px;
+}
+
+.task-item:hover {
+    background-color: var(--md-sys-color-surface-container);
+    transform: translateX(4px);
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+/* 任务内容 */
+.task-content {
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* 任务主要信息 */
+.task-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* 任务标题区域 */
+.task-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+}
+
+.task-name {
+    font-family: var(--md-sys-typescale-title-medium-font);
+    font-size: var(--md-sys-typescale-title-medium-size);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    font-weight: var(--md-sys-typescale-title-medium-weight);
+    color: var(--md-sys-color-on-surface);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 任务描述和元数据 */
+.task-supporting-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.task-metadata {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 2px 0;
+}
+
+.metadata-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.metadata-item md-icon {
+    font-size: 20px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* 任务描述 */
+.task-description {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    line-height: var(--md-sys-typescale-body-medium-line-height);
+    color: var(--md-sys-color-on-surface-variant);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 任务操作按钮 */
+.task-actions {
+    display: flex;
+    gap: 4px;
+    padding: 0 4px;
+}
+
+.task-item:hover .task-actions {
+    opacity: 1;
+}
+
+.task-actions md-icon-button {
+    --md-icon-button-icon-size: 20px;
+    --md-icon-button-state-layer-width: 36px;
+    --md-icon-button-state-layer-height: 36px;
+}
+/* 编辑按钮 */
+.edit-task md-icon {
+    color: var(--md-sys-color-primary);
+}
+
+/* 删除按钮 */
+.delete-task md-icon {
+    color: var(--md-sys-color-error);
+}
+
+/* 优先级标识 */
+.priority-indicator {
+    width: 4px;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    border-radius: 2px;
+}
+
+.priority-high {
+    background-color: var(--md-sys-color-error);
+}
+
+.priority-medium {
+    background-color: var(--md-sys-color-warning);
+}
+
+.priority-low {
+    background-color: var(--md-sys-color-primary);
+}
+
+/* 过期任务样式 */
+.task-overdue .task-due-date {
+    color: var(--md-sys-color-error);
+}
+
+.task-overdue .task-due-date md-icon {
+    color: var(--md-sys-color-error);
+}
+
+.supporting-icon {
+   
+}
+.task-priority {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.task-supporting-text{
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.task-due-date  {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }

@@ -32,17 +32,36 @@ function setTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 
-// 添加页面过渡处理
-function handleNavigation() {
+// 设置活动链接
+function setActiveLink() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.remove('active');
+        if (href === currentPage || 
+            (currentPage === '' && href === 'index.html') || 
+            (currentPage === '/' && href === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+}
 
+// 添加导航事件监听
+function addNavigationListeners() {
+    const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
-
+            const mainContent = document.querySelector('.main-content');
+            
             // 添加离开动画
-            document.querySelector('.main-content').classList.add('page-exit');
+            if (mainContent) {
+                mainContent.style.opacity = '0';
+                mainContent.style.transform = 'translateY(20px)';
+            }
 
             // 等待动画完成后加载新页面
             setTimeout(() => {
@@ -52,48 +71,11 @@ function handleNavigation() {
     });
 }
 
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', () => {
-    // 定义设置活动链接的函数
-    function setActiveLink() {
-        let currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        if (currentPage === '') {
-            currentPage = 'index.html';
-        }
-
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            // 移除所有active类
-            link.classList.remove('active');
-            // 为当前页面添加active类
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('active');
-            }
-        });
-    }
-
-    // 设置当前页面的导航项为激活状态
-    setActiveLink();
-
-    // 初始化主题切换
-    initThemeToggle();
-
-    // 监听导航容器的变化
-    const navContainer = document.getElementById('nav-container');
-    if (navContainer) {
-        const observer = new MutationObserver(() => {
-            setActiveLink();
-            handleNavigation();
-        });
-
-        observer.observe(navContainer, {
-            childList: true,
-            subtree: true
-        });
-    }
-});
-
 // 添加页面加载完成后的处理
 window.addEventListener('load', () => {
-    document.querySelector('.main-content').style.opacity = '1';
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.style.opacity = '1';
+        mainContent.style.transform = 'translateY(0)';
+    }
 });

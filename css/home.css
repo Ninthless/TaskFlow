@@ -1,13 +1,22 @@
+/* 主页头部容器样式 */
 .home-header {
+    /* 使用 flex 布局 */
     display: flex;
+    /* 垂直居中对齐 */
     align-items: center;
+    /* 两端对齐,中间留空 */
     justify-content: space-between;
+    /* 内边距:上下0,左右16px */
     padding: 0 16px 16px;
+    /* 底部外边距 */
     margin-bottom: 8px;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    /* 底部边框线 */
 }
 
+/* Material Design 标题文字样式 */
 .md-typescale-display-medium {
+    /* 字体大小 */
     font-size: 32px;
+    /* 字体粗细 */
     font-weight: 700;
 }

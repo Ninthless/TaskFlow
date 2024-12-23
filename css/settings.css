@@ -1,13 +1,117 @@
+/* 设置页面头部容器样式 */
 .settings-header {
+    padding: 16px 0;
+    margin-bottom: 24px;
+}
+
+/* 设置页面标题样式 */
+.settings-title {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+/* 设置页面样式 */
+.settings-section {
+    background-color: var(--md-sys-color-surface);
+    border-radius: 28px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.settings-section-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: 16px;
+}
+
+.settings-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px 16px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    padding: 16px;
+    border-radius: 16px;
+    background-color: var(--md-sys-color-surface-container);
+    margin-bottom: 12px;
 }
 
-.settings-title {
-    font-size: 32px;
-    font-weight: 700;
+.settings-item:last-child {
+    margin-bottom: 0;
+}
+
+.settings-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.settings-item-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.settings-item-description {
+    font-size: 14px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.settings-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.danger-zone {
+    background-color: var(--md-sys-color-error-container);
+    padding: 16px;
+    border-radius: 16px;
+    margin-top: 16px;
+}
+
+.danger-zone-title {
+    color: var(--md-sys-color-on-error-container);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.danger-zone-description {
+    color: var(--md-sys-color-on-error-container);
+    font-size: 14px;
+    margin-bottom: 16px;
+    opacity: 0.8;
+}
+
+.danger-zone-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* 开关样式 */
+md-switch {
+    --md-switch-selected-handle-color: var(--md-sys-color-primary);
+    --md-switch-selected-track-color: var(--md-sys-color-primary-container);
+    --md-switch-unselected-handle-color: var(--md-sys-color-outline);
+    --md-switch-unselected-track-color: var(--md-sys-color-surface-container-highest);
+    --md-switch-handle-shape: 9999px;
+}
+
+/* 按钮样式 */
+md-filled-tonal-button {
+    --md-filled-tonal-button-container-shape: 20px;
+}
+
+md-filled-button {
+    --md-filled-button-container-shape: 20px;
+}
+
+/* 错误按钮样式 */
+.error-button {
+    --md-filled-button-container-color: var(--md-sys-color-error);
+    --md-filled-button-hover-state-layer-color: var(--md-sys-color-on-error);
+    --md-filled-button-label-text-color: var(--md-sys-color-on-error);
+    min-width: 130px;
 }

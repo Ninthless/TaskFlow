@@ -13,7 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <!-- Material Web Components -->
     <script type="importmap">
@@ -38,8 +38,55 @@
 </head>
 
 <body class="light">
-    <!-- 导入导航栏 -->
-    <div id="nav-container"></div>
+    <!-- 导航栏 -->
+    <div id="nav-container">
+        <div class="navigation-bar">
+            <!-- 顶部导航 -->
+            <div class="nav-top">
+                <a href="index.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>home</md-icon>
+                        </div>
+                        <span class="button-label">主页</span>
+                    </div>
+                </a>
+                <a href="tasks.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>task</md-icon>
+                        </div>
+                        <span class="button-label">任务</span>
+                    </div>
+                </a>
+
+                <a href="calendar.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>calendar_month</md-icon>
+                        </div>
+                        <span class="button-label">日历</span>
+                    </div>
+                </a>
+
+                <a href="settings.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>settings</md-icon>
+                        </div>
+                        <span class="button-label">设置</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 底部导航 -->
+            <div class="nav-bottom">
+                <md-icon-button class="theme-toggle">
+                    <md-icon class="theme-icon">dark_mode</md-icon>
+                </md-icon-button>
+            </div>
+        </div>
+    </div>
 
     <!-- 页面主要内容 -->
     <main class="main-content">
@@ -50,15 +97,17 @@
 
     <!-- 应用程序脚本 -->
     <script src="js/app.js"></script>
+    <script src="js/components/snackbar.js"></script>
     <script>
-        // 加载导航栏
-        fetch('templates/nav.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('nav-container').innerHTML = html;
-                // 重新初始化主题切换
-                initThemeToggle();
-            });
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化主题切换
+            initThemeToggle();
+            // 设置活动链接
+            setActiveLink();
+            // 添加导航事件监听
+            addNavigationListeners();
+        });
     </script>
 </body>
 

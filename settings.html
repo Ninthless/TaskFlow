@@ -7,16 +7,16 @@
     <title>设置 - 个人任务管理与日程安排系统</title>
 
     <!-- Material Design Web Components -->
-    <!-- 1. Material Symbols 图标 -->
+    <!-- Material Symbols 图标 -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <!-- 2. Material Design Web Components 核心样式 -->
+    <!-- Material Design Web Components 核心样式 -->
     <link href="https://cdn.jsdelivr.net/npm/@material/web@1.1.1/dist/all.min.css" rel="stylesheet">
 
-    <!-- 3. Material Design Web Components 核心脚本 -->
+    <!-- Material Design Web Components 核心脚本 -->
     <script type="importmap">
         {
           "imports": {
@@ -31,10 +31,10 @@
         document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
 
-    <!-- 4. Google Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- 5. 自定义样式 -->
+    <!-- 自定义样式 -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/settings.css">
     <link rel="stylesheet" href="css/light.css">
@@ -42,30 +42,144 @@
 </head>
 
 <body class="light">
-    <!-- 导入导航栏 -->
-    <div id="nav-container"></div>
+    <!-- 导航栏 -->
+    <div id="nav-container">
+        <div class="navigation-bar">
+            <!-- 顶部导航 -->
+            <div class="nav-top">
+                <a href="index.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>home</md-icon>
+                        </div>
+                        <span class="button-label">主页</span>
+                    </div>
+                </a>
+                <a href="tasks.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>task</md-icon>
+                        </div>
+                        <span class="button-label">任务</span>
+                    </div>
+                </a>
+
+                <a href="calendar.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>calendar_month</md-icon>
+                        </div>
+                        <span class="button-label">日历</span>
+                    </div>
+                </a>
+
+                <a href="settings.html" class="nav-link">
+                    <div class="menu-button-area">
+                        <div class="icon-container">
+                            <md-icon>settings</md-icon>
+                        </div>
+                        <span class="button-label">设置</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 底部导航 -->
+            <div class="nav-bottom">
+                <md-icon-button class="theme-toggle">
+                    <md-icon class="theme-icon">dark_mode</md-icon>
+                </md-icon-button>
+            </div>
+        </div>
+    </div>
 
     <!-- 页面主要内容 -->
     <main class="main-content">
         <div class="settings-header">
-            <div class="settings-title">设置</div>
-        </div> 
-        <!-- 这里添加设置相关的内容 -->
+            <h1 class="settings-title">设置</h1>
+        </div>
+
+        <!-- 存储设置 -->
+        <div class="settings-section">
+            <h2 class="settings-section-title">存储设置</h2>
+            <div class="settings-item">
+                <div class="settings-item-content">
+                    <div class="settings-item-title">本地存储</div>
+                    <div class="settings-item-description">启用后将自动保存您的任务和日程数据到本地</div>
+                </div>
+                <md-switch id="storage-switch" selected></md-switch>
+            </div>
+        </div>
+
+        <!-- 数据管理 -->
+        <div class="settings-section">
+            <h2 class="settings-section-title">数据管理</h2>
+            <div class="settings-item">
+                <div class="settings-item-content">
+                    <div class="settings-item-title">导出数据</div>
+                    <div class="settings-item-description">将您的任务和日程数据导出为 JSON 文件</div>
+                </div>
+                <div class="settings-actions">
+                    <md-filled-tonal-button id="export-data-btn">
+                        <md-icon slot="icon">download</md-icon>
+                        导出
+                    </md-filled-tonal-button>
+                </div>
+            </div>
+
+            <div class="settings-item">
+                <div class="settings-item-content">
+                    <div class="settings-item-title">导入数据</div>
+                    <div class="settings-item-description">从 JSON 文件导入任务和日程数据</div>
+                </div>
+                <div class="settings-actions">
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <md-filled-tonal-button id="import-data-btn">
+                        <md-icon slot="icon">upload</md-icon>
+                        导入
+                    </md-filled-tonal-button>
+                </div>
+            </div>
+
+            <div class="danger-zone">
+                <div class="danger-zone-title">危险区域</div>
+                <div class="danger-zone-description">
+                    清除所有数据将永久删除您的任务和日程数据，此操作无法撤销。
+                </div>
+                <div class="danger-zone-actions">
+                    <md-filled-button class="error-button" id="clear-data-btn">
+                        <md-icon slot="icon">delete_forever</md-icon>
+                        清除所有数据
+                    </md-filled-button>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <!-- 确认对话框 -->
+    <md-dialog id="confirm-dialog">
+        <div slot="headline">确认操作</div>
+        <div slot="content" id="confirm-message"></div>
+        <div slot="actions">
+            <md-text-button id="cancel-action-btn">取消</md-text-button>
+            <md-filled-button id="confirm-action-btn">确认</md-filled-button>
+        </div>
+    </md-dialog>
 
     <!-- 导入导航栏和初始化主题 -->
     <script src="js/app.js"></script>
+    <script src="js/components/snackbar.js"></script>
+    <script src="js/settings.js"></script>
     <script>
-        // 加载导航栏
-        fetch('templates/nav.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('nav-container').innerHTML = html;
-                // 重新初始化主题切换
-                initThemeToggle();
-            });
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化主题切换
+            initThemeToggle();
+            // 设置活动链接
+            setActiveLink();
+            // 添加导航事件监听
+            addNavigationListeners();
+        });
     </script>
-
 </body>
 
 </html>

@@ -163,7 +163,7 @@ class Calendar {
         `;
         this.scheduleList.innerHTML = scheduleListHTML;
 
-        // 绑定添加日程按钮事件
+        // 绑定添加日程���钮事件
         this.scheduleList.querySelector('.add-schedule').addEventListener('click', () => {
             this.showAddScheduleDialog();
         });
@@ -414,6 +414,80 @@ class Calendar {
         } catch (error) {
             console.error('导入日程数据失败:', error);
             return false;
+        }
+    }
+
+    addEvent(event) {
+        try {
+            const dateKey = event.date;
+            if (!this.events.has(dateKey)) {
+                this.events.set(dateKey, []);
+            }
+            this.events.get(dateKey).push(event);
+            this.saveEvents();
+            this.renderEvents(dateKey);
+            window.snackbar.show('日程添加成功', 'success');
+        } catch (error) {
+            console.error('添加日程失败:', error);
+            window.snackbar.show('添加日程失败，请重试', 'error');
+        }
+    }
+
+    editEvent(dateKey, eventIndex, updatedEvent) {
+        try {
+            const events = this.events.get(dateKey);
+            if (events && events[eventIndex]) {
+                events[eventIndex] = updatedEvent;
+                this.saveEvents();
+                this.renderEvents(dateKey);
+                window.snackbar.show('日程更新成功', 'success');
+            }
+        } catch (error) {
+            console.error('更新日程失败:', error);
+            window.snackbar.show('更新日程失败，请重试', 'error');
+        }
+    }
+
+    deleteEvent(dateKey, eventIndex) {
+        try {
+            const events = this.events.get(dateKey);
+            if (events) {
+                events.splice(eventIndex, 1);
+                if (events.length === 0) {
+                    this.events.delete(dateKey);
+                }
+                this.saveEvents();
+                this.renderEvents(dateKey);
+                window.snackbar.show('日程删除成功', 'success');
+            }
+        } catch (error) {
+            console.error('删除日程失败:', error);
+            window.snackbar.show('删除日程失败，请重试', 'error');
+        }
+    }
+
+    saveEvents() {
+        try {
+            if (localStorage.getItem('storageEnabled') !== 'false') {
+                const eventsObject = Object.fromEntries(this.events);
+                localStorage.setItem('calendarEvents', JSON.stringify(eventsObject));
+            }
+        } catch (error) {
+            console.error('保存日程数据失败:', error);
+            window.snackbar.show('保存日程数据失败，请检查浏览器存储设置', 'error');
+        }
+    }
+
+    loadEvents() {
+        try {
+            const storedEvents = localStorage.getItem('calendarEvents');
+            if (storedEvents) {
+                const eventsObject = JSON.parse(storedEvents);
+                this.events = new Map(Object.entries(eventsObject));
+            }
+        } catch (error) {
+            console.error('加载日程数据失败:', error);
+            window.snackbar.show('加载日程数据失败，请刷新页面重试', 'error');
         }
     }
 }
