@@ -1,22 +1,226 @@
-/* 主页头部容器样式 */
-.home-header {
-    /* 使用 flex 布局 */
-    display: flex;
-    /* 垂直居中对齐 */
-    align-items: center;
-    /* 两端对齐,中间留空 */
-    justify-content: space-between;
-    /* 内边距:上下0,左右16px */
-    padding: 0 16px 16px;
-    /* 底部外边距 */
-    margin-bottom: 8px;
-    /* 底部边框线 */
+/* 主页布局 */
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
-/* Material Design 标题文字样式 */
-.md-typescale-display-medium {
-    /* 字体大小 */
-    font-size: 32px;
-    /* 字体粗细 */
-    font-weight: 700;
+/* 主页头部 */
+.home-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.home-title {
+    font-family: var(--md-sys-typescale-headline-large-font);
+    font-size: var(--md-sys-typescale-headline-large-size);
+    line-height: var(--md-sys-typescale-headline-large-line-height);
+    font-weight: var(--md-sys-typescale-headline-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0;
+    font-size: 28px;
+}
+
+/* 卡片基础样式 */
+.home-card {
+    background-color: var(--md-sys-color-surface);
+    border-radius: 28px;
+    box-shadow: var(--md-sys-elevation-1);
+    overflow: hidden;
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-card:hover {
+    box-shadow: var(--md-sys-elevation-2);
+}
+
+/* 卡片头部 */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.card-title {
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    line-height: var(--md-sys-typescale-title-large-line-height);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    color: var(--md-sys-color-on-surface);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-title md-icon {
+    color: var(--md-sys-color-primary);
+}
+
+/* 任务概览卡片 */
+.tasks-overview {
+    display: flex;
+    flex-direction: column;
+}
+
+.tasks-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 24px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    background-color: var(--md-sys-color-surface-container-high);
+    border-radius: 16px;
+}
+
+.stat-value {
+    font-family: var(--md-sys-typescale-headline-medium-font);
+    font-size: var(--md-sys-typescale-headline-medium-size);
+    line-height: var(--md-sys-typescale-headline-medium-line-height);
+    font-weight: var(--md-sys-typescale-headline-medium-weight);
+    color: var(--md-sys-color-on-surface);
+}
+
+.stat-label {
+    font-family: var(--md-sys-typescale-label-medium-font);
+    font-size: var(--md-sys-typescale-label-medium-size);
+    line-height: var(--md-sys-typescale-label-medium-line-height);
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* 近期任务列表 */
+.recent-tasks {
+    padding: 16px 24px;
+}
+
+.task-list-home {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.task-item-home {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--md-sys-color-surface-container);
+    align-items: center;
+}
+
+.task-item-home:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* 日程概览卡片 */
+.calendar-overview {
+    display: flex;
+    flex-direction: column;
+}
+
+.today-schedule {
+    padding: 24px;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.schedule-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--md-sys-color-surface-container);
+    position: relative;
+}
+
+.schedule-time {
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    color: var(--md-sys-color-primary);
+    min-width: 80px;
+}
+
+.schedule-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.schedule-title {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    color: var(--md-sys-color-on-surface);
+}
+
+/* 快速操作按钮 */
+.quick-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 16px;
+    padding: 16px 24px;
+    background-color: var(--md-sys-color-surface);
+    border-radius: 16px;
+}
+
+/* 响应式布局 */
+@media (max-width: 1024px) {
+    .home-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .tasks-stats {
+        padding: 16px;
+    }
+
+    .recent-tasks,
+    .today-schedule {
+        padding: 16px;
+    }
+
+    .quick-actions {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-container {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .tasks-stats {
+        grid-template-columns: 1fr;
+    }
 }

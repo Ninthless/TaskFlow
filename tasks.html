@@ -23,7 +23,7 @@
           }
         }
     </script>
-    <script type="module">
+    <script type="module" async> 
         import '@material/web/all.js';
         import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
 
@@ -91,7 +91,7 @@
     <!-- 页面主要内容 -->
     <main class="main-content">
         <div class="tasks-header">
-            <div class="md-typescale-headline-large">任务管理</div>
+            <h1 class="tasks-title">任务管理</h1>
             <md-filled-tonal-button id="add-task-btn">
                 <md-icon slot="icon">add</md-icon>
                 新建任务
@@ -107,11 +107,24 @@
         <md-dialog id="task-dialog" scrimClickAction="close" escapeKeyAction="close">
             <div slot="headline" class="md-typescale-headline-small">新建任务</div>
             <form slot="content" id="task-form" class="task-form">
-                <md-outlined-text-field label="任务名称" type="text" id="task-name" required name="task-name"
-                    error-text="请输入任务名称" class="md-typescale-body-large" supporting-text="输入任务的名称"></md-outlined-text-field>
+                <md-outlined-text-field 
+                    label="任务名称" 
+                    type="text" 
+                    id="task-name" 
+                    name="name"
+                    required 
+                    error-text="请输入任务名称" 
+                    class="md-typescale-body-large" 
+                    supporting-text="输入任务的名称">
+                </md-outlined-text-field>
 
-                <md-outlined-select label="优先级" id="task-priority" required name="task-priority"
-                    class="md-typescale-body-large" supporting-text="选择任务的优先级">
+                <md-outlined-select 
+                    label="优先级" 
+                    id="task-priority" 
+                    name="priority"
+                    required 
+                    class="md-typescale-body-large" 
+                    supporting-text="选择任务的优先级">
                     <md-select-option value="high">
                         <div slot="headline">高优先级</div>
                     </md-select-option>
@@ -123,9 +136,27 @@
                     </md-select-option>
                 </md-outlined-select>
 
+                <md-outlined-text-field 
+                    label="任务描述" 
+                    type="textarea" 
+                    id="task-description" 
+                    name="description"
+                    rows="3" 
+                    class="md-typescale-body-large" 
+                    supporting-text="输入任务的详细描述">
+                </md-outlined-text-field>
+
                 <div class="date-time-fields">
-                    <md-filled-text-field label="截止日期" type="text" id="task-due-date" required readonly
-                        error-text="请选择截止日期" class="md-typescale-body-large" supporting-text="点击选择日期">
+                    <md-filled-text-field 
+                        label="截止日期" 
+                        type="text" 
+                        id="task-due-date" 
+                        name="dueDate"
+                        required 
+                        readonly
+                        error-text="请选择截止日期" 
+                        class="md-typescale-body-large" 
+                        supporting-text="点击选择日期">
                         <md-icon slot="trailing-icon">calendar_month</md-icon>
                     </md-filled-text-field>
 
@@ -133,7 +164,7 @@
                         label="截止时间" 
                         type="text" 
                         id="task-due-time" 
-                        class="task-due-time"
+                        name="dueTime"
                         required 
                         readonly
                         error-text="请选择截止时间" 
@@ -141,16 +172,6 @@
                         <md-icon slot="trailing-icon">schedule</md-icon>
                     </md-filled-text-field>
                 </div>
-
-                <md-filled-text-field 
-                    label="描述" 
-                    type="textarea" 
-                    id="task-description" 
-                    rows="3"
-                    name="task-description" 
-                    class="md-typescale-body-large" 
-                    supporting-text="添加任务的详细描述（可选）">
-                </md-filled-text-field>
             </form>
             <div slot="actions">
                 <md-text-button id="cancel-task-btn">取消</md-text-button>
@@ -237,31 +258,25 @@
         </md-dialog>
 
         <!-- 时间选择器对话框 -->
-        <md-dialog id="time-picker-dialog" class="time-picker-dialog">
+        <md-dialog id="time-picker-dialog">
             <div slot="headline">选择时间</div>
             <div slot="content" class="time-picker-content">
-                <div class="time-input-group">
-                    <div class="time-input-field">
-                        <md-filled-text-field
-                            type="text"
-                            id="hour-input"
-                            label="小时"
-                            maxlength="2"
-                            placeholder="00"
-                            class="time-input">
-                        </md-filled-text-field>
-                    </div>
+                <div class="time-input-container">
+                    <md-filled-text-field
+                        type="text"
+                        id="hour-input"
+                        label="时"
+                        maxlength="2"
+                        class="time-input">
+                    </md-filled-text-field>
                     <span class="time-separator">:</span>
-                    <div class="time-input-field">
-                        <md-filled-text-field
-                            type="text"
-                            id="minute-input"
-                            label="分钟"
-                            maxlength="2"
-                            placeholder="00"
-                            class="time-input">
-                        </md-filled-text-field>
-                    </div>
+                    <md-filled-text-field
+                        type="text"
+                        id="minute-input"
+                        label="分"
+                        maxlength="2"
+                        class="time-input">
+                    </md-filled-text-field>
                 </div>
             </div>
             <div slot="actions">
@@ -271,9 +286,10 @@
         </md-dialog>
     </main>
 
-    <!-- 导入导航栏和初始化主题 -->
+    <!-- 导入脚本 -->
     <script src="js/app.js"></script>
     <script src="js/components/snackbar.js"></script>
+    <script src="js/task-manager.js"></script>
     <script src="js/tasks.js"></script>
     <script>
         // 页面加载完成后初始化
