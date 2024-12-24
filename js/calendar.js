@@ -158,7 +158,7 @@ class Calendar {
                     添加日程
                 </md-filled-button>
             </div>
-            <md-divider></md-divider>
+            
             <div class="schedule-list"></div>
         `;
         this.scheduleList.innerHTML = scheduleListHTML;

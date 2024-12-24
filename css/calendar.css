@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    flex: 1;
 }
 
 /* 当前月份和年份显示样式 */
@@ -10,7 +11,7 @@
     font-size: 24px;
     font-weight: 500;
     margin: 0;
-    min-width: 160px;
+    flex: 1;
     text-align: center;
     color: var(--md-sys-color-on-surface);
 }
@@ -23,16 +24,12 @@
     background-color: var(--md-sys-color-surface);
     border-radius: 28px;
     box-shadow: var(--md-sys-elevation-1);
-    padding: 24px;
-    height: 100%;
+    padding: 32px;
     box-sizing: border-box;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
-    -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 560px;
+    height: fit-content;
 }
 
 /* 日程列表区域样式 */
@@ -43,9 +40,22 @@
     background-color: var(--md-sys-color-surface);
     border-radius: 28px;
     box-shadow: var(--md-sys-elevation-1);
-    overflow: hidden;
+    padding: 32px;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
     min-width: 360px;
     max-width: 420px;
+    height: fit-content;
+}
+
+/* 日历头部样式 */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    width: 100%;
 }
 
 /* 日程列表头部样式 */
@@ -53,10 +63,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 24px;
+    padding: 0 4px 16px 4px;
+    margin-bottom: 16px;
     background-color: var(--md-sys-color-surface);
     border-bottom: 1px solid var(--md-sys-color-outline-variant);
-    gap: 8px;
+    gap: 12px;
 }
 
 /* 选中日期显示样式 */
@@ -69,72 +80,21 @@
 
 /* 日程列表内容区域样式 */
 .schedule-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 12px;
-    background-color: var(--md-sys-color-surface);
-}
-
-/* 滚动条样式 - Webkit浏览器 */
-.schedule-list::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.schedule-list::-webkit-scrollbar-track {
-    background: var(--md-sys-color-surface-container);
-    border-radius: 4px;
-}
-
-.schedule-list::-webkit-scrollbar-thumb {
-    background: var(--md-sys-color-outline);
-    border-radius: 4px;
-    transition: background 0.2s ease;
-}
-
-.schedule-list::-webkit-scrollbar-thumb:hover {
-    background: var(--md-sys-color-outline-variant);
-}
-
-/* 滚动条样式 - Firefox浏览器 */
-.schedule-list {
-    scrollbar-color: var(--md-sys-color-outline) var(--md-sys-color-surface-container);
-}
-
-/* 空状态提示样式 */
-.empty-state {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 48px 24px;
-    background-color: var(--md-sys-color-surface-container);
-    border-radius: 24px;
-    margin: 16px;
-}
-
-/* 空状态图标样式 */
-.empty-state .empty-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-    color: var(--md-sys-color-outline);
-}
-
-/* 空状态文本样式 */
-.empty-state p {
-    font-size: 16px;
-    color: var(--md-sys-color-on-surface-variant);
-    margin: 0;
-    text-align: center;
+    gap: 12px;
+    padding: 4px;
+    background-color: var(--md-sys-color-surface);
 }
 
 /* 列表项样式 */
 md-list-item {
-    margin: 8px 0;
+    margin: 0;
     border-radius: 16px;
     background-color: var(--md-sys-color-surface-container);
     transition: all 0.2s ease;
     --md-list-item-container-color: transparent;
+    padding: 12px;
 }
 
 /* 列表项悬停效果 */
@@ -214,7 +174,8 @@ md-list-item [slot="end"] md-icon-button {
     flex: 1;
     min-height: 0;
     height: calc(100% - 70px);
-    overflow: hidden;
+    padding: 24px 0;
+    
 }
 
 /* 日历主体区域样式 */
@@ -222,11 +183,10 @@ md-list-item [slot="end"] md-icon-button {
     flex: 1;
     display: flex;
     flex-direction: column;
-    border-radius: 24px;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
-    min-height: 0;
     position: relative;
+    width: 100%;
 }
 
 /* 星期标题栏样式 */
@@ -234,8 +194,10 @@ md-list-item [slot="end"] md-icon-button {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 12px;
-    padding: 8px 4px;
-    margin-bottom: 8px;
+    padding: 0 4px 16px 4px;
+    margin-bottom: 16px;
+    width: 100%;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 /* 星期标题样式 */
@@ -251,20 +213,20 @@ md-list-item [slot="end"] md-icon-button {
 
 /* 日期网格容器样式 */
 .days {
-    flex: 1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 12px;
     padding: 4px;
-    height: 100%;
+    width: 100%;
+    aspect-ratio: 7/6;
 }
 
 /* 日期单元格样式 */
 .day {
     position: relative;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -272,14 +234,10 @@ md-list-item [slot="end"] md-icon-button {
     cursor: pointer;
     border-radius: 16px;
     background-color: var(--md-sys-color-surface-container-high);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 8px;
     box-sizing: border-box;
     border: 2px solid transparent;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 /* 日期单元格悬停效果 */
@@ -403,7 +361,6 @@ md-list-item [slot="end"] md-icon-button {
     height: 100vh;
     padding: 16px 24px;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
 /* 页面头部样式 */
@@ -434,4 +391,64 @@ md-list-item [slot="end"] md-icon-button {
 .schedule-form md-filled-text-field {
     width: 100%;
     --md-filled-text-field-container-color: var(--md-sys-color-surface-container-highest);
+}
+
+@media (max-width: 1200px) {
+    .schedule-management-page-area {
+        flex-direction: column;
+        padding: 0;
+        gap: 32px;
+    }
+
+    .calendar-area {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .calendar-schedule-List {
+        min-width: 100%;
+        max-width: none;
+        width: 100%;
+    }
+
+    .calendar-header {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .calendar-nav {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    .calendar-actions {
+        flex: 1;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-area,
+    .calendar-schedule-List {
+        padding: 24px;
+    }
+
+    .weekdays {
+        gap: 8px;
+    }
+
+    .days {
+        gap: 8px;
+    }
+
+    .day {
+        padding: 4px;
+    }
+
+    .day-number {
+        font-size: 1rem;
+    }
+}
+.today-button {
+    margin-left: 20px;
 }
