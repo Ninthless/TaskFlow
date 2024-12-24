@@ -163,7 +163,7 @@ class Calendar {
         `;
         this.scheduleList.innerHTML = scheduleListHTML;
 
-        // 绑定添加日程���钮事件
+        // 绑定添加日程按钮事件
         this.scheduleList.querySelector('.add-schedule').addEventListener('click', () => {
             this.showAddScheduleDialog();
         });
@@ -375,7 +375,13 @@ class Calendar {
     }
 
     formatDate(date) {
-        return date.toISOString().split('T')[0];
+        // 创建一个新的日期对象，避免修改原始日期
+        const d = new Date(date);
+        // 获取本地时区的年月日
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 
     // 清除所有日程数据
