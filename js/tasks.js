@@ -1,13 +1,47 @@
 // 任务UI管理
 class TaskUI {
     constructor() {
+        // 初始化任务管理器
         this.taskManager = window.taskManager;
-        // 等待DOM加载完成后再初始化UI
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.initializeUI());
-        } else {
-            this.initializeUI();
-        }
+
+        // 初始化对话框
+        this.dialog = document.getElementById('task-dialog');
+        this.editDialog = document.getElementById('edit-task-dialog');
+        this.datePickerDialog = document.getElementById('date-picker-dialog');
+        this.timePickerDialog = document.getElementById('time-picker-dialog');
+
+        // 初始化表单
+        this.taskForm = document.getElementById('task-form');
+        this.editTaskForm = document.getElementById('edit-task-form');
+
+        // 初始化按钮
+        this.saveTaskBtn = document.getElementById('save-task-btn');
+        this.editSaveBtn = document.getElementById('edit-save-btn');
+        this.addTaskBtn = document.getElementById('add-task-btn');
+
+        // 初始化日期时间输入
+        this.taskDueDate = document.getElementById('task-due-date');
+        this.taskDueTime = document.getElementById('task-due-time');
+        this.editDueDate = document.getElementById('edit-task-due-date');
+        this.editDueTime = document.getElementById('edit-task-due-time');
+
+        // 初始化任务列表容器
+        this.tasksList = document.getElementById('tasks-list');
+
+        // 初始化其他变量
+        this.currentEditingTaskId = null;
+        this.currentDateTime = new Date();
+        this.currentDateInput = null;
+        this.currentTimeInput = null;
+
+        // 设置默认日期和时间
+        this.setDefaultDateTime();
+
+        // 绑定事件
+        this.bindEventHandlers();
+
+        // 渲染任务列表
+        this.renderTasks();
     }
 
     initializeUI() {
@@ -53,40 +87,33 @@ class TaskUI {
     }
 
     bindEventHandlers() {
-        // 添加任务按钮
+        // 新建任务按钮事件
         this.addTaskBtn?.addEventListener('click', () => {
             this.resetForm();
             this.dialog?.show();
         });
 
-        // 保存任务按钮
+        // 保存任务按钮事件
         this.saveTaskBtn?.addEventListener('click', () => {
             if (this.validateForm(this.taskForm)) {
                 this.handleTaskSubmit();
             }
         });
 
-        // 编辑保存按钮
+        // 编辑保存按钮事件
         this.editSaveBtn?.addEventListener('click', () => {
-            if (this.validateForm(this.editTaskForm)) {
-                this.handleEditTaskSubmit();
-            }
+            this.handleEditTaskSubmit();
         });
 
-        // 取消按钮
+        // 取消按钮事件
         document.getElementById('cancel-task-btn')?.addEventListener('click', () => {
             this.dialog?.close();
+            this.resetForm();
         });
 
+        // 编辑取消按钮事件
         document.getElementById('edit-cancel-btn')?.addEventListener('click', () => {
             this.editDialog?.close();
-        });
-
-        // 表单验证
-        [this.taskForm, this.editTaskForm].forEach(form => {
-            form?.addEventListener('input', () => {
-                this.validateForm(form);
-            });
         });
 
         // 日期选择器事件
@@ -138,15 +165,20 @@ class TaskUI {
         document.getElementById('cancel-time-btn')?.addEventListener('click', () => {
             this.timePickerDialog?.close();
         });
+
+        // 表单验证
+        this.taskForm?.addEventListener('input', () => {
+            this.validateForm(this.taskForm);
+        });
     }
 
     validateForm(form) {
         if (!form) return false;
 
-        const taskName = form.querySelector('[name="name"]');
-        const taskPriority = form.querySelector('[name="priority"]');
-        const dueDate = form.querySelector('[name="dueDate"]');
-        const dueTime = form.querySelector('[name="dueTime"]');
+        const taskName = form.querySelector('[name="task-name"]');
+        const taskPriority = form.querySelector('[name="task-priority"]');
+        const dueDate = form.querySelector('[name="task-due-date"]');
+        const dueTime = form.querySelector('[name="task-due-time"]');
 
         const isValid = taskName?.value.trim() && 
                        taskPriority?.value && 
@@ -185,30 +217,59 @@ class TaskUI {
     }
 
     handleEditTaskSubmit() {
-        const formData = this.getFormData(this.editTaskForm);
-        if (formData && this.currentEditingTaskId) {
-            try {
+        try {
+            const formData = {
+                name: this.editTaskForm.querySelector('#edit-task-name').value.trim(),
+                priority: this.editTaskForm.querySelector('#edit-task-priority').value,
+                dueDate: new Date(`${this.editTaskForm.querySelector('#edit-task-due-date').value} ${this.editTaskForm.querySelector('#edit-task-due-time').value}`).toISOString(),
+                description: this.editTaskForm.querySelector('#edit-task-description').value.trim()
+            };
+
+            if (this.currentEditingTaskId) {
                 this.taskManager.updateTask(this.currentEditingTaskId, formData);
                 this.renderTasks();
                 this.editDialog?.close();
                 window.snackbar.show('任务已更新', 'success');
-            } catch (error) {
-                console.error('更新任务失败:', error);
-                window.snackbar.show('更新任务失败，请重试', 'error');
             }
+        } catch (error) {
+            console.error('更新任务失败:', error);
+            window.snackbar.show('更新任务失败，请重试', 'error');
         }
     }
 
     getFormData(form) {
         if (!form) return null;
 
-        const taskName = form.querySelector('[name="name"]')?.value.trim();
-        const taskPriority = form.querySelector('[name="priority"]')?.value;
-        const dueDate = form.querySelector('[name="dueDate"]')?.value;
-        const dueTime = form.querySelector('[name="dueTime"]')?.value;
-        const description = form.querySelector('[name="description"]')?.value.trim();
+        // 获取表单字段
+        const nameInput = form.querySelector('#edit-task-name, #task-name');
+        const prioritySelect = form.querySelector('#edit-task-priority, #task-priority');
+        const dueDateInput = form.querySelector('#edit-task-due-date, #task-due-date');
+        const dueTimeInput = form.querySelector('#edit-task-due-time, #task-due-time');
+        const descriptionInput = form.querySelector('#edit-task-description, #task-description');
+
+        // 获取字段值
+        const taskName = nameInput?.value.trim();
+        const taskPriority = prioritySelect?.value;
+        const dueDate = dueDateInput?.value;
+        const dueTime = dueTimeInput?.value;
+        const description = descriptionInput?.value.trim();
+
+        // 调试日志
+        console.log('表单数据:', {
+            taskName,
+            taskPriority,
+            dueDate,
+            dueTime,
+            description
+        });
 
         if (!taskName || !taskPriority || !dueDate || !dueTime) {
+            console.error('表单数据不完整:', {
+                taskName,
+                taskPriority,
+                dueDate,
+                dueTime
+            });
             return null;
         }
 
@@ -217,20 +278,24 @@ class TaskUI {
             const dateTimeStr = `${dueDate} ${dueTime}`;
             const dueDateObj = new Date(dateTimeStr);
 
-            // 验证日期是否有效
             if (isNaN(dueDateObj.getTime())) {
-                console.error('Invalid date:', dateTimeStr);
+                console.error('无效的日期:', dateTimeStr);
                 return null;
             }
 
-            return {
+            const formData = {
                 name: taskName,
                 priority: taskPriority,
                 dueDate: dueDateObj.toISOString(),
-                description: description
+                description: description || ''
             };
+
+            // 调试日志
+            console.log('处理后的表单数据:', formData);
+            return formData;
+
         } catch (error) {
-            console.error('Error creating task data:', error);
+            console.error('创建任务数据时出错:', error);
             return null;
         }
     }
@@ -310,7 +375,7 @@ class TaskUI {
                         </div>
                         <div class="metadata-item task-due-date">
                             <md-icon>schedule</md-icon>
-                            <span>截止：${window.formatDate(dueDate)}</span>
+                            <span>截止时间：${window.formatDate(dueDate)}</span>
                         </div>
                     </div>
                 </div>
@@ -334,17 +399,18 @@ class TaskUI {
             
             try {
                 // 更新任务状态
-                this.taskManager.toggleTaskComplete(task.id);
-                
-                // 更新UI
-                taskElement.classList.toggle('completed', isChecked);
-                if (statusElement && statusText) {
-                    statusElement.classList.toggle('status-completed', isChecked);
-                    statusElement.classList.toggle('status-pending', !isChecked);
-                    statusText.textContent = isChecked ? '已完成' : '待完成';
+                const updatedTask = this.taskManager.toggleTaskComplete(task.id);
+                if (updatedTask) {
+                    // 更新UI
+                    taskElement.classList.toggle('completed', isChecked);
+                    if (statusElement && statusText) {
+                        statusElement.classList.toggle('status-completed', isChecked);
+                        statusElement.classList.toggle('status-pending', !isChecked);
+                        statusText.textContent = isChecked ? '已完成' : '待完成';
+                    }
+                    
+                    window.snackbar.show(isChecked ? '任务已完成' : '任务已恢复', 'success');
                 }
-                
-                window.snackbar.show(isChecked ? '任务已完成' : '任务已恢复', 'success');
             } catch (error) {
                 console.error('更新任务状态失败:', error);
                 window.snackbar.show('操作失败，请重试', 'error');
@@ -357,20 +423,20 @@ class TaskUI {
         const editBtn = taskElement.querySelector('.edit-task');
         const deleteBtn = taskElement.querySelector('.delete-task');
 
-        editBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
+        editBtn?.addEventListener('click', () => {
             this.openEditDialog(task.id);
         });
 
-        deleteBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            try {
-                this.taskManager.deleteTask(task.id);
-                this.renderTasks();
-                window.snackbar.show('任务已删除', 'success');
-            } catch (error) {
-                console.error('删除任务失败:', error);
-                window.snackbar.show('删除任务失败，请重试', 'error');
+        deleteBtn?.addEventListener('click', () => {
+            if (confirm('确定要删除这个任务吗？')) {
+                try {
+                    this.taskManager.deleteTask(task.id);
+                    this.renderTasks();
+                    window.snackbar.show('任务已删除', 'success');
+                } catch (error) {
+                    console.error('删除任务失败:', error);
+                    window.snackbar.show('删除任务失败，请重试', 'error');
+                }
             }
         });
 
@@ -379,7 +445,10 @@ class TaskUI {
 
     openEditDialog(taskId) {
         const task = this.taskManager.getTask(taskId);
-        if (!task || !this.editTaskForm || !this.editDialog) return;
+        if (!task || !this.editTaskForm || !this.editDialog) {
+            console.error('无法打开编辑对话框:', { taskId, task, form: this.editTaskForm, dialog: this.editDialog });
+            return;
+        }
 
         this.currentEditingTaskId = taskId;
         const form = this.editTaskForm;
@@ -387,14 +456,21 @@ class TaskUI {
         const nameInput = form.querySelector('#edit-task-name');
         const prioritySelect = form.querySelector('#edit-task-priority');
         const descriptionInput = form.querySelector('#edit-task-description');
+        const dueDateInput = form.querySelector('#edit-task-due-date');
+        const dueTimeInput = form.querySelector('#edit-task-due-time');
         
         if (nameInput) nameInput.value = task.name;
         if (prioritySelect) prioritySelect.value = task.priority;
         if (descriptionInput) descriptionInput.value = task.description || '';
         
         const dueDate = new Date(task.dueDate);
-        if (this.editDueDate) this.editDueDate.value = window.formatDate(dueDate);
-        if (this.editDueTime) this.editDueTime.value = window.formatTime(dueDate);
+        if (dueDateInput) dueDateInput.value = window.formatDate(dueDate);
+        if (dueTimeInput) dueTimeInput.value = window.formatTime(dueDate);
+
+        // 确保编辑按钮在打开对话框时是启用的
+        if (this.editSaveBtn) {
+            this.editSaveBtn.disabled = false;
+        }
 
         this.editDialog.show();
     }
@@ -462,46 +538,36 @@ class TaskUI {
         });
     }
 
-    createDayElement(date, disabled) {
+    createDayElement(date, isOutsideMonth) {
         const dayElement = document.createElement('div');
-        dayElement.className = 'calendar-day';
-        if (disabled) {
-            dayElement.classList.add('disabled');
-        }
+        dayElement.className = `calendar-day${isOutsideMonth ? ' outside-month' : ''}`;
         
-        // 检查是否是今天
         const today = new Date();
-        if (date.toDateString() === today.toDateString()) {
-            dayElement.classList.add('today');
-        }
+        const isToday = date.getDate() === today.getDate() && 
+                       date.getMonth() === today.getMonth() && 
+                       date.getFullYear() === today.getFullYear();
         
-        // 检查是否是选中的日期
-        if (this.currentDateTime && date.toDateString() === this.currentDateTime.toDateString()) {
-            dayElement.classList.add('selected');
+        if (isToday) {
+            dayElement.classList.add('today');
         }
         
         dayElement.textContent = date.getDate();
         
-        if (!disabled) {
-            dayElement.addEventListener('click', () => {
-                // 移除其他日期的选中状态
-                document.querySelectorAll('.calendar-day.selected').forEach(el => {
-                    el.classList.remove('selected');
-                });
-                // 添加选中状态
-                dayElement.classList.add('selected');
-                
-                // 更新当前日期时间，保持时间部分不变
-                const currentTime = this.currentDateTime || new Date();
-                this.currentDateTime = new Date(
-                    date.getFullYear(),
-                    date.getMonth(),
-                    date.getDate(),
-                    currentTime.getHours(),
-                    currentTime.getMinutes()
-                );
-            });
-        }
+        dayElement.addEventListener('click', () => {
+            // 移除之前选中的日期
+            const selectedDay = document.querySelector('.calendar-day.selected');
+            if (selectedDay) {
+                selectedDay.classList.remove('selected');
+            }
+            
+            // 选中当天日期
+            dayElement.classList.add('selected');
+            
+            // 更新当前选择的日期
+            this.currentDateTime.setFullYear(date.getFullYear());
+            this.currentDateTime.setMonth(date.getMonth());
+            this.currentDateTime.setDate(date.getDate());
+        });
         
         return dayElement;
     }
@@ -512,76 +578,47 @@ class TaskUI {
         
         if (!hourInput || !minuteInput) return;
 
-        // 设置输入框的值
+        // 保存当前选择的时间
+        this.currentDateTime = time;
+        
+        // 设置小时和分钟
         hourInput.value = time.getHours().toString().padStart(2, '0');
         minuteInput.value = time.getMinutes().toString().padStart(2, '0');
-        
-        // 保存当前时间
-        this.currentDateTime = time;
 
-        // 绑定输入事件
-        this.bindTimeInputEvents(hourInput, minuteInput);
-    }
-
-    bindTimeInputEvents(hourInput, minuteInput) {
         // 小时输入验证
         hourInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/[^0-9]/g, '');
-            const numValue = parseInt(value, 10);
+            value = Math.min(Math.max(parseInt(value) || 0, 0), 23).toString();
+            e.target.value = value.padStart(2, '0');
             
-            if (value.length > 0) {
-                if (value.length > 2) value = value.slice(0, 2);
-                if (numValue > 23) value = '23';
-                if (numValue < 0) value = '00';
-            }
-            e.target.value = value;
-            this.validateTimeInputs();
+            const newTime = new Date(this.currentDateTime);
+            newTime.setHours(parseInt(value));
+            this.currentDateTime = newTime;
         });
         
         // 分钟输入验证
         minuteInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/[^0-9]/g, '');
-            const numValue = parseInt(value, 10);
+            value = Math.min(Math.max(parseInt(value) || 0, 0), 59).toString();
+            e.target.value = value.padStart(2, '0');
             
-            if (value.length > 0) {
-                if (value.length > 2) value = value.slice(0, 2);
-                if (numValue > 59) value = '59';
-                if (numValue < 0) value = '00';
-            }
-            e.target.value = value;
-            this.validateTimeInputs();
+            const newTime = new Date(this.currentDateTime);
+            newTime.setMinutes(parseInt(value));
+            this.currentDateTime = newTime;
         });
     }
 
-    validateTimeInputs() {
-        const hourInput = document.getElementById('hour-input');
-        const minuteInput = document.getElementById('minute-input');
-        const confirmBtn = document.getElementById('confirm-time-btn');
-        
-        if (!hourInput || !minuteInput || !confirmBtn) return false;
-
-        const hourValue = parseInt(hourInput.value, 10);
-        const minuteValue = parseInt(minuteInput.value, 10);
-        
-        const isHourValid = !isNaN(hourValue) && hourValue >= 0 && hourValue <= 23;
-        const isMinuteValid = !isNaN(minuteValue) && minuteValue >= 0 && minuteValue <= 59;
-        
-        const isValid = isHourValid && isMinuteValid;
-        confirmBtn.disabled = !isValid;
-        
-        if (isValid) {
-            // 更新当前时间
-            const currentDate = this.currentDateTime || new Date();
-            this.currentDateTime = new Date(
-                currentDate.getFullYear(),
-                currentDate.getMonth(),
-                currentDate.getDate(),
-                hourValue,
-                minuteValue
-            );
+    getPriorityText(priority) {
+        switch (priority) {
+            case 'high':
+                return '高优先级';
+            case 'medium':
+                return '中优先级';
+            case 'low':
+                return '低优先级';
+            default:
+                return '未知优先级';
         }
-        
-        return isValid;
     }
 }
 

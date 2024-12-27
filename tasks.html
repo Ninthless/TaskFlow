@@ -288,8 +288,8 @@
 
     <!-- 导入脚本 -->
     <script src="js/app.js"></script>
-    <script src="js/components/snackbar.js"></script>
     <script src="js/task-manager.js"></script>
+    <script src="js/components/snackbar.js"></script>
     <script src="js/tasks.js"></script>
     <script>
         // 页面加载完成后初始化
@@ -298,8 +298,8 @@
             initThemeToggle();
             // 设置活动链接
             setActiveLink();
-            // 添加导航事件监听
-            addNavigationListeners();
+            // 初始化任务管理器
+            new TaskUI();
         });
     </script>
 </body>
