@@ -1,8 +1,12 @@
-# 个人任务管理与日程安排系统
+# TaskFlow
+
+> Personal Task and Schedule Management System | 个人任务管理与日程安排系统
+
+A modern, web-based personal task and schedule management system built with Material Design 3, providing an intuitive user interface and smooth user experience.
 
 一个现代化的、基于 Web 的个人任务管理和日程安排系统，使用 Material Design 3 设计语言，提供直观的用户界面和流畅的使用体验。
 
-## 功能特点
+## Features | 功能特点
 
 ### 任务管理
 - 创建、编辑、删除任务
