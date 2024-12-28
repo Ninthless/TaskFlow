@@ -6,6 +6,8 @@ A modern, web-based personal task and schedule management system built with Mate
 
 一个现代化的、基于 Web 的个人任务管理和日程安排系统，使用 Material Design 3 设计语言，提供直观的用户界面和流畅的使用体验。
 
+注：这是我的期末作业
+
 ## Features | 功能特点
 
 ### Task Management | 任务管理
